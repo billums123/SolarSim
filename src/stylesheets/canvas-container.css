@@ -1,0 +1,14 @@
+.canvas-container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex: 1;
+height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .canvas-container{
+    height: 100vh;
+    width: 100%
+  }
+}
