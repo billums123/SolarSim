@@ -1,0 +1,10 @@
+.main-container {
+  width: 100%;
+  display: flex;
+  
+}
+@media (max-width: 900px) {
+  .main-container{
+    display: block;
+  }
+}

@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
-import CanvasContainer from "./CanvasContainer";
-import InputsContainer from "./InputsContainer";
+import MainContainer from "./MainContainer";
+
 const App = () => {
   return (
-    <Box className="app">
-      <InputsContainer />
-      <CanvasContainer />
+    <Box component="div" className="app">
+      <MainContainer />
     </Box>
   );
 };
