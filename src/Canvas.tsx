@@ -17,8 +17,8 @@ const Canvas = ({ width, height }: CanvasProps) => {
         <mesh>
           <boxGeometry args={[width, height, 0.1]} />
           <meshStandardMaterial />
-          <OrbitControls makeDefault />
-          {/* <OrbitControls enablePan={false} enableRotate={false} /> */}
+          {/* <OrbitControls makeDefault /> */}
+          <OrbitControls enablePan={false} enableRotate={false} />
         </mesh>
       </CanvasElement>
     </Box>
