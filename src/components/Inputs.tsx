@@ -1,7 +1,8 @@
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Divider, Button, Paper } from "@mui/material";
 import "../stylesheets/inputs.css";
 import { FormValues } from "../types";
 import SolarPanelSettings from "./SolarPanelSettings";
+import StorageTankSettings from "./StorageTankSettings";
 
 interface InputsProps {
   formValues: FormValues;
@@ -12,20 +13,34 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
   const { solarFlux } = formValues;
   return (
     <Box component="div" className="inputs">
-      <Box component="div" className="solar-panel-group">
+      <Paper elevation={3} className="inputs-group">
         <SolarPanelSettings
           formValues={formValues}
           handleFormChange={handleFormChange}
         />
-        {/* <Divider light sx={{ width: "75%" }} /> */}
-        <TextField
+        <StorageTankSettings
+          formValues={formValues}
+          handleFormChange={handleFormChange}
+        />
+        <StorageTankSettings
+          formValues={formValues}
+          handleFormChange={handleFormChange}
+        />
+        <StorageTankSettings
+          formValues={formValues}
+          handleFormChange={handleFormChange}
+        />
+        {/* <TextField
           name="solarFlux"
           label="Solar Flux"
           type="number"
           value={solarFlux}
           onChange={handleFormChange}
           sx={{ width: "100%" }}
-        />
+        /> */}
+      </Paper>
+      <Box component="div" className="run-simulation">
+        <Button variant="contained">RUN SIMULATION</Button>
       </Box>
     </Box>
   );

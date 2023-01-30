@@ -11,18 +11,18 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { SolarPower as SolarPowerIcon } from "@mui/icons-material";
+import { PropaneTank as PropaneTankIcon } from "@mui/icons-material";
 import { FormValues } from "../types";
-import "../stylesheets/solar-panel-settings.css";
+import "../stylesheets/storage-tank-settings.css";
 
-interface SolarPanelSettingsProps {
+interface StorageTankSettingsProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
 }
-const SolarPanelSettings = ({
+const StorageTankSettings = ({
   formValues,
   handleFormChange,
-}: SolarPanelSettingsProps) => {
+}: StorageTankSettingsProps) => {
   const {
     shapeOfPanel,
     panelWidth,
@@ -35,12 +35,12 @@ const SolarPanelSettings = ({
     <>
       <Accordion>
         <AccordionSummary
-          expandIcon={<SolarPowerIcon sx={{ color: "secondary.main" }} />}
+          expandIcon={<PropaneTankIcon sx={{ color: "secondary.main" }} />}
           sx={{ bgcolor: "primary.main" }}
         >
-          <Typography>Solar Panel Configuration</Typography>
+          <Typography>Storage Tank Configuration</Typography>
         </AccordionSummary>
-        <AccordionDetails className="solar-panel-details">
+        <AccordionDetails className="storage-tank-details">
           <FormControl fullWidth>
             <InputLabel id="shape-label">Shape of Solar Panel</InputLabel>
             <Select
@@ -103,9 +103,6 @@ const SolarPanelSettings = ({
             value={panelEfficiency}
             onChange={handleFormChange}
             sx={{ width: "100%" }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
           />
         </AccordionDetails>
       </Accordion>
@@ -113,4 +110,4 @@ const SolarPanelSettings = ({
   );
 };
 
-export default SolarPanelSettings;
+export default StorageTankSettings;
