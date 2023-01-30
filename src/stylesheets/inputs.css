@@ -1,15 +1,29 @@
 .inputs {
   height: 100%;
-  width: 50%;
+  width: 55%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 10%;
   align-items: center;
-
   }
 
   @media (max-width: 600px) {
     .inputs{
       width: 70%;
     }
+  }
+
+  .solar-panel-group {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .solar-panel-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    row-gap: 25px;
   }

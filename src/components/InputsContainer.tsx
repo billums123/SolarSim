@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import Inputs from "./Inputs";
 import "../stylesheets/inputs-container.css";
 import { FormValues } from "../types";
@@ -13,9 +13,9 @@ const InputsContainer = ({
   handleFormChange,
 }: InputsContainerProps) => {
   return (
-    <Box component="div" className="inputs-container">
+    <Paper elevation={10} className="inputs-container">
       <Inputs formValues={formValues} handleFormChange={handleFormChange} />
-    </Box>
+    </Paper>
   );
 };
 
