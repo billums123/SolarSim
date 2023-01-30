@@ -4,12 +4,18 @@
   align-items: center;
   flex: 1;
   height: 100vh;
+  padding-top: 64px;
   }
 
   @media (max-width: 900px) {
     .inputs-container{
       height: 100vh;
       width: 100%
+    }
+  }
+  @media (max-width: 600px) {
+    .inputs-container{
+      padding-top: 54px;
     }
   }
   
