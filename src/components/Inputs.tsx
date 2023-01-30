@@ -15,7 +15,7 @@ interface InputsProps {
 }
 
 const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
-  const { shapeOfPanel } = formValues;
+  const { shapeOfPanel, panelWidth, panelLength, panelDiameter } = formValues;
   return (
     <Box component="div" className="inputs">
       <FormControl fullWidth>
@@ -31,8 +31,35 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
           <MenuItem value="circle">Circle</MenuItem>
         </Select>
       </FormControl>
-      <TextField />
-      <TextField />
+      {shapeOfPanel === "rectangle" ? (
+        <>
+          <Box component="div">
+            <TextField
+              name="panelWidth"
+              label="Width"
+              type="number"
+              value={panelWidth}
+              onChange={handleFormChange}
+            />
+            <TextField
+              name="panelLength"
+              label="Length"
+              type="number"
+              value={panelLength}
+              onChange={handleFormChange}
+            />
+          </Box>
+        </>
+      ) : (
+        <TextField
+          name="panelDiameter"
+          label="Diameter"
+          type="number"
+          value={panelDiameter}
+          onChange={handleFormChange}
+          sx={{ width: "100%" }}
+        />
+      )}
     </Box>
   );
 };

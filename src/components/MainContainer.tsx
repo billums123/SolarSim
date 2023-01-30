@@ -20,7 +20,6 @@ const MainContainer = () => {
   });
 
   const handleFormChange = (e: any) => {
-    console.log("ID", e.target.name);
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
