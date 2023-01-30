@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Canvas as CanvasElement } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import "./stylesheets/canvas.css";
+import "../stylesheets/canvas.css";
 
 interface CanvasProps {
   width: number;

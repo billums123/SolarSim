@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import CanvasContainer from "./CanvasContainer";
 import InputsContainer from "./InputsContainer";
-import "./stylesheets/main-container.css";
+import "../stylesheets/main-container.css";
 
 const MainContainer = () => {
   return (
