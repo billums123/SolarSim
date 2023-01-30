@@ -1,11 +1,16 @@
 import { Box } from "@mui/material";
 import Canvas from "./Canvas";
 import "../stylesheets/canvas-container.css";
+import { FormValues } from "../types";
 
-const CanvasContainer = () => {
+interface CanvasContainerProps {
+  formValues: FormValues;
+}
+
+const CanvasContainer = ({ formValues }: CanvasContainerProps) => {
   return (
     <Box component="div" className="canvas-container">
-      <Canvas width={4} height={4} />
+      <Canvas formValues={formValues} />
     </Box>
   );
 };
