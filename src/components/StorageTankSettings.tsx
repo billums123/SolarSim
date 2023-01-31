@@ -24,11 +24,11 @@ const StorageTankSettings = ({
   handleFormChange,
 }: StorageTankSettingsProps) => {
   const {
-    shapeOfPanel,
-    panelWidth,
-    panelLength,
-    panelDiameter,
-    panelEfficiency,
+    storageTankThermalConductivity,
+    storageTankHeight,
+    storageTankDiameter,
+    fluidInitTemp,
+    fluidFinalTemp,
   } = formValues;
 
   return (
@@ -41,68 +41,78 @@ const StorageTankSettings = ({
           <Typography>Storage Tank Configuration</Typography>
         </AccordionSummary>
         <AccordionDetails className="storage-tank-details">
-          <FormControl fullWidth>
-            <InputLabel id="shape-label">Shape of Solar Panel</InputLabel>
-            <Select
-              labelId="shape-label"
-              name="shapeOfPanel"
-              value={shapeOfPanel}
-              label="Shape of Solar Panel"
-              onChange={handleFormChange}
-            >
-              <MenuItem value="rectangle">Rectangle</MenuItem>
-              <MenuItem value="circle">Circle</MenuItem>
-            </Select>
-          </FormControl>
-          {shapeOfPanel === "rectangle" ? (
-            <>
-              <Box component="div" sx={{ display: "flex" }}>
-                <TextField
-                  name="panelWidth"
-                  label="Width"
-                  type="number"
-                  value={panelWidth}
-                  onChange={handleFormChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">m</InputAdornment>
-                    ),
-                  }}
-                />
-                <TextField
-                  name="panelLength"
-                  label="Length"
-                  type="number"
-                  value={panelLength}
-                  onChange={handleFormChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">m</InputAdornment>
-                    ),
-                  }}
-                />
-              </Box>
-            </>
-          ) : (
+          <TextField
+            name="storageTankThermalConductivity"
+            label="Thermal Conductivity of Tank"
+            type="number"
+            value={storageTankThermalConductivity}
+            onChange={handleFormChange}
+            sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">W/mK</InputAdornment>
+              ),
+            }}
+          />
+          <Box component="div" sx={{ display: "flex" }}>
             <TextField
-              name="panelDiameter"
-              label="Diameter"
+              name="storageTankHeight"
+              label="Tank Height"
               type="number"
-              value={panelDiameter}
+              value={storageTankHeight}
               onChange={handleFormChange}
-              sx={{ width: "100%" }}
               InputProps={{
                 endAdornment: <InputAdornment position="end">m</InputAdornment>,
               }}
             />
-          )}
+            <TextField
+              name="storageTankDiameter"
+              label="Tank Diameter"
+              type="number"
+              value={storageTankDiameter}
+              onChange={handleFormChange}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">m</InputAdornment>,
+              }}
+            />
+          </Box>
           <TextField
-            name="panelEfficiency"
-            label="Panel Efficiency"
+            name="storageTankCapacity"
+            label="Storage Tank Capacity"
             type="number"
-            value={panelEfficiency}
+            value={(
+              (Math.PI / 4) *
+              Math.pow(storageTankDiameter, 2) *
+              1000
+            ).toFixed(2)}
             onChange={handleFormChange}
             sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">L</InputAdornment>,
+              readOnly: true,
+            }}
+          />
+          <TextField
+            name="fluidInitTemp"
+            label="Initial Fluid Temperature"
+            type="number"
+            value={fluidInitTemp}
+            onChange={handleFormChange}
+            sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
+            }}
+          />
+          <TextField
+            name="fluidFinalTemp"
+            label="Desired Final Fluid Temperature"
+            type="number"
+            value={fluidFinalTemp ? fluidFinalTemp : " "}
+            onChange={handleFormChange}
+            sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
+            }}
           />
         </AccordionDetails>
       </Accordion>

@@ -11,12 +11,15 @@ const MainContainer = () => {
     panelWidth: 1,
     panelLength: 1,
     panelDiameter: 1,
-    panelEfficiency: 0.15,
+    panelEfficiency: 15,
     time: 0,
-    storageTank: 1,
+    storageTankCapacity: 1,
     solarFlux: 1000,
+    storageTankThermalConductivity: 0.5,
+    storageTankHeight: 1,
+    storageTankDiameter: 1,
     fluidInitTemp: 20,
-    fluidFinalTemp: 20,
+    fluidFinalTemp: null,
   });
 
   const handleFormChange = (e: any) => {

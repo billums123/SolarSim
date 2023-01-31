@@ -9,7 +9,14 @@ interface CanvasProps {
 }
 
 const Canvas = ({ formValues }: CanvasProps) => {
-  const { shapeOfPanel, panelWidth, panelLength, panelDiameter } = formValues;
+  const {
+    shapeOfPanel,
+    panelWidth,
+    panelLength,
+    panelDiameter,
+    storageTankHeight,
+    storageTankDiameter,
+  } = formValues;
   return (
     <Box component="div" className="canvas">
       <CanvasElement shadows camera={{ position: [-15, 10, 15], fov: 25 }}>
@@ -17,18 +24,31 @@ const Canvas = ({ formValues }: CanvasProps) => {
           <ambientLight intensity={0.1} />
           <directionalLight position={[0, 5, 5]} />
           {shapeOfPanel === "rectangle" ? (
-            <mesh>
+            <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
               <boxGeometry args={[panelWidth, 0.1, panelLength]} />
               <meshStandardMaterial />
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           ) : (
-            <mesh>
-              <cylinderGeometry args={[panelDiameter, panelDiameter, 0.1]} />
+            <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
+              <cylinderGeometry
+                args={[panelDiameter / 2, panelDiameter / 2, 0.1]}
+              />
               <meshStandardMaterial />
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           )}
+          <mesh position={[0, 0, 3]}>
+            <cylinderGeometry
+              args={[
+                storageTankDiameter / 2,
+                storageTankDiameter / 2,
+                storageTankHeight,
+              ]}
+            />
+            <meshStandardMaterial />
+            <OrbitControls enablePan={false} enableRotate={false} />
+          </mesh>
         </>
       </CanvasElement>
     </Box>

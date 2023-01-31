@@ -22,14 +22,6 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
           formValues={formValues}
           handleFormChange={handleFormChange}
         />
-        <StorageTankSettings
-          formValues={formValues}
-          handleFormChange={handleFormChange}
-        />
-        <StorageTankSettings
-          formValues={formValues}
-          handleFormChange={handleFormChange}
-        />
         {/* <TextField
           name="solarFlux"
           label="Solar Flux"
@@ -40,7 +32,9 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
         /> */}
       </Paper>
       <Box component="div" className="run-simulation">
-        <Button variant="contained">RUN SIMULATION</Button>
+        <Button variant="contained" sx={{ color: "secondary.main" }}>
+          RUN SIMULATION
+        </Button>
       </Box>
     </Box>
   );
