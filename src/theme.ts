@@ -17,10 +17,10 @@ const theme = createTheme({
       contrastText: "#242424",
     },
     success: {
-      main: green.A700,
+      main: green.A200,
     },
     error: {
-      main: red.A700,
+      main: red.A200,
     },
   },
   spacing: 4,

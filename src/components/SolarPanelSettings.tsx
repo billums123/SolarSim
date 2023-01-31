@@ -12,9 +12,10 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import { SolarPower as SolarPowerIcon } from "@mui/icons-material";
-import { solarPanelFormControl } from "../utils/FormControl";
-import { FormValues } from "../types";
+import formControl from "../utils/formControl";
+import { FormValues, SolarPanelSettingsErrors } from "../types";
 import "../stylesheets/solar-panel-settings.css";
+import { useEffect, useState } from "react";
 
 interface SolarPanelSettingsProps {
   formValues: FormValues;
@@ -32,12 +33,53 @@ const SolarPanelSettings = ({
     panelEfficiency,
   } = formValues;
 
+  const [errorsExist, setErrorsExist] = useState(true);
+
+  const [solarPanelFormErrors, setSolarPanelFormErrors] =
+    useState<SolarPanelSettingsErrors>({
+      shapeOfPanelError: "",
+      panelWidthError: "",
+      panelLengthError: "",
+      panelDiameterError: "",
+      panelEfficiencyError: "",
+    });
+
+  const handleCheckIfAnyErrorsExist = () => {
+    const errorsExist = Object.values(solarPanelFormErrors).some(
+      (formError) => formError.length
+    );
+    errorsExist ? setErrorsExist(true) : setErrorsExist(false);
+  };
+
+  const handleSetSolarPanelFormErrors = (errors: SolarPanelSettingsErrors) => {
+    setSolarPanelFormErrors(errors);
+    return;
+  };
+
+  useEffect(() => {
+    formControl.solarPanelSettings(
+      {
+        shapeOfPanel,
+        panelWidth,
+        panelLength,
+        panelDiameter,
+        panelEfficiency,
+      },
+      handleSetSolarPanelFormErrors
+    );
+  }, [formValues]);
+
+  useEffect(() => {
+    handleCheckIfAnyErrorsExist();
+  }, [solarPanelFormErrors]);
+
+  console.log("ERRORSEXIST", errorsExist, "ERRORS", solarPanelFormErrors);
   return (
     <>
       <Accordion>
         <AccordionSummary
           expandIcon={<SolarPowerIcon sx={{ color: "secondary.main" }} />}
-          sx={{ bgcolor: "primary.main" }}
+          sx={{ bgcolor: errorsExist ? "error.main" : "success.main" }}
         >
           <Typography>Solar Panel Configuration</Typography>
         </AccordionSummary>
@@ -64,6 +106,8 @@ const SolarPanelSettings = ({
                   type="number"
                   value={panelWidth}
                   onChange={handleFormChange}
+                  error={solarPanelFormErrors.panelWidthError.length > 0}
+                  helperText={solarPanelFormErrors.panelWidthError}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">m</InputAdornment>
@@ -75,6 +119,8 @@ const SolarPanelSettings = ({
                   label="Length"
                   type="number"
                   value={panelLength}
+                  error={solarPanelFormErrors.panelLengthError.length > 0}
+                  helperText={solarPanelFormErrors.panelLengthError}
                   onChange={handleFormChange}
                   InputProps={{
                     endAdornment: (
@@ -91,6 +137,8 @@ const SolarPanelSettings = ({
               type="number"
               value={panelDiameter}
               onChange={handleFormChange}
+              error={solarPanelFormErrors.panelDiameterError.length > 0}
+              helperText={solarPanelFormErrors.panelDiameterError}
               sx={{ width: "100%" }}
               InputProps={{
                 endAdornment: <InputAdornment position="end">m</InputAdornment>,
@@ -103,6 +151,8 @@ const SolarPanelSettings = ({
             type="number"
             value={panelEfficiency}
             onChange={handleFormChange}
+            error={solarPanelFormErrors.panelEfficiencyError.length > 0}
+            helperText={solarPanelFormErrors.panelEfficiencyError}
             sx={{ width: "100%" }}
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,

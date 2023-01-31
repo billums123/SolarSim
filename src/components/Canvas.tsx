@@ -25,14 +25,24 @@ const Canvas = ({ formValues }: CanvasProps) => {
           <directionalLight position={[0, 5, 5]} />
           {shapeOfPanel === "rectangle" ? (
             <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
-              <boxGeometry args={[panelWidth, 0.1, panelLength]} />
+              <boxGeometry
+                args={[
+                  panelWidth > 0 ? panelWidth : 1,
+                  0.1,
+                  panelLength > 0 ? panelLength : 1,
+                ]}
+              />
               <meshStandardMaterial />
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           ) : (
             <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
               <cylinderGeometry
-                args={[panelDiameter / 2, panelDiameter / 2, 0.1]}
+                args={[
+                  panelDiameter > 0 ? panelDiameter / 2 : 1,
+                  panelDiameter > 0 ? panelDiameter / 2 : 1,
+                  0.1,
+                ]}
               />
               <meshStandardMaterial />
               <OrbitControls enablePan={false} enableRotate={false} />

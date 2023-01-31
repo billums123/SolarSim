@@ -1,9 +1,20 @@
-export interface FormValues {
+export interface SolarPanelSettings {
   shapeOfPanel: "rectangle" | "circle";
   panelWidth: number;
   panelLength: number;
   panelDiameter: number;
   panelEfficiency: number;
+}
+
+export interface SolarPanelSettingsErrors {
+  shapeOfPanelError: string;
+  panelWidthError: string;
+  panelLengthError: string;
+  panelDiameterError: string;
+  panelEfficiencyError: string;
+}
+
+export interface FormValues extends SolarPanelSettings {
   time: number;
   storageTankCapacity: number;
   storageTankThermalConductivity: number;
@@ -13,8 +24,3 @@ export interface FormValues {
   fluidInitTemp: number;
   fluidFinalTemp: number | null;
 }
-
-export type CanvasProps = Pick<
-  FormValues,
-  "shapeOfPanel" | "panelWidth" | "panelLength" | "panelDiameter"
->;
