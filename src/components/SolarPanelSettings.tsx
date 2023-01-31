@@ -13,17 +13,26 @@ import {
 } from "@mui/material";
 import { SolarPower as SolarPowerIcon } from "@mui/icons-material";
 import formControl from "../utils/formControl";
-import { FormValues, SolarPanelSettingsErrors } from "../types";
+import {
+  FormValues,
+  GlobalFormErrors,
+  SetGlobalFormErrors,
+  SolarPanelSettingsErrors,
+} from "../types";
 import "../stylesheets/solar-panel-settings.css";
 import { useEffect, useState } from "react";
 
 interface SolarPanelSettingsProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
+  globalFormErrors: GlobalFormErrors;
+  handleSetGlobalFormErrors: ({ name, error }: SetGlobalFormErrors) => void;
 }
 const SolarPanelSettings = ({
   formValues,
   handleFormChange,
+  globalFormErrors,
+  handleSetGlobalFormErrors,
 }: SolarPanelSettingsProps) => {
   const {
     shapeOfPanel,
@@ -32,8 +41,6 @@ const SolarPanelSettings = ({
     panelDiameter,
     panelEfficiency,
   } = formValues;
-
-  const [errorsExist, setErrorsExist] = useState(true);
 
   const [solarPanelFormErrors, setSolarPanelFormErrors] =
     useState<SolarPanelSettingsErrors>({
@@ -48,8 +55,15 @@ const SolarPanelSettings = ({
     const errorsExist = Object.values(solarPanelFormErrors).some(
       (formError) => formError.length
     );
-    console.log(solarPanelFormErrors);
-    errorsExist ? setErrorsExist(true) : setErrorsExist(false);
+    errorsExist
+      ? handleSetGlobalFormErrors({
+          name: "solarPanelSettingsErrors",
+          error: true,
+        })
+      : handleSetGlobalFormErrors({
+          name: "solarPanelSettingsErrors",
+          error: false,
+        });
   };
 
   const handleSetSolarPanelFormErrors = (errors: SolarPanelSettingsErrors) => {
@@ -68,18 +82,21 @@ const SolarPanelSettings = ({
       },
       handleSetSolarPanelFormErrors
     );
-  }, [formValues]);
+  }, [shapeOfPanel, panelWidth, panelLength, panelDiameter, panelEfficiency]);
 
   useEffect(() => {
     handleCheckIfAnyErrorsExist();
   }, [solarPanelFormErrors]);
-
   return (
     <>
       <Accordion>
         <AccordionSummary
           expandIcon={<SolarPowerIcon sx={{ color: "secondary.main" }} />}
-          sx={{ bgcolor: errorsExist ? "error.main" : "success.main" }}
+          sx={{
+            bgcolor: globalFormErrors.solarPanelSettingsErrors
+              ? "error.main"
+              : "success.main",
+          }}
         >
           <Typography>Solar Panel Configuration</Typography>
         </AccordionSummary>
@@ -149,8 +166,7 @@ const SolarPanelSettings = ({
             name="panelEfficiency"
             label="Panel Efficiency"
             type="number"
-            placeholder="15"
-            value={panelEfficiency}
+            value={panelEfficiency ? panelEfficiency : ""}
             onChange={handleFormChange}
             error={solarPanelFormErrors.panelEfficiencyError.length > 0}
             helperText={solarPanelFormErrors.panelEfficiencyError}

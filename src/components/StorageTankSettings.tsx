@@ -1,10 +1,6 @@
 import {
   Box,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
-  FormControl,
   InputAdornment,
   Typography,
   Accordion,
@@ -12,16 +8,27 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import { PropaneTank as PropaneTankIcon } from "@mui/icons-material";
-import { FormValues } from "../types";
+import {
+  FormValues,
+  GlobalFormErrors,
+  SetGlobalFormErrors,
+  StorageTankSettingsErrors,
+} from "../types";
 import "../stylesheets/storage-tank-settings.css";
+import React, { useState, useEffect } from "react";
+import formControl from "../utils/formControl";
 
 interface StorageTankSettingsProps {
   formValues: FormValues;
-  handleFormChange: (event: any) => void;
+  handleFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  globalFormErrors: GlobalFormErrors;
+  handleSetGlobalFormErrors: ({ name, error }: SetGlobalFormErrors) => void;
 }
 const StorageTankSettings = ({
   formValues,
   handleFormChange,
+  globalFormErrors,
+  handleSetGlobalFormErrors,
 }: StorageTankSettingsProps) => {
   const {
     storageTankThermalConductivity,
@@ -31,12 +38,70 @@ const StorageTankSettings = ({
     fluidFinalTemp,
   } = formValues;
 
+  const [storageTankFormErrors, setStorageTankFormErrors] =
+    useState<StorageTankSettingsErrors>({
+      storageTankThermalConductivityError: "",
+      storageTankHeightError: "",
+      storageTankDiameterError: "",
+      fluidInitTempError: "",
+      fluidFinalTempError: "error",
+    });
+
+  const handleCheckIfAnyErrorsExist = () => {
+    const errorsExist = Object.values(storageTankFormErrors).some(
+      (formError) => formError.length
+    );
+    errorsExist
+      ? handleSetGlobalFormErrors({
+          name: "storageTankSettingsErrors",
+          error: true,
+        })
+      : handleSetGlobalFormErrors({
+          name: "storageTankSettingsErrors",
+          error: false,
+        });
+  };
+
+  const handleSetstorageTankFormErrors = (
+    errors: StorageTankSettingsErrors
+  ) => {
+    setStorageTankFormErrors(errors);
+    return;
+  };
+
+  useEffect(() => {
+    formControl.storageTankSettings(
+      {
+        storageTankThermalConductivity,
+        storageTankHeight,
+        storageTankDiameter,
+        fluidInitTemp,
+        fluidFinalTemp,
+      },
+      handleSetstorageTankFormErrors
+    );
+  }, [
+    storageTankThermalConductivity,
+    storageTankHeight,
+    storageTankDiameter,
+    fluidInitTemp,
+    fluidFinalTemp,
+  ]);
+
+  useEffect(() => {
+    handleCheckIfAnyErrorsExist();
+  }, [storageTankFormErrors]);
+
   return (
     <>
       <Accordion>
         <AccordionSummary
           expandIcon={<PropaneTankIcon sx={{ color: "secondary.main" }} />}
-          sx={{ bgcolor: "primary.main" }}
+          sx={{
+            bgcolor: globalFormErrors.storageTankSettingsErrors
+              ? "error.main"
+              : "success.main",
+          }}
         >
           <Typography>Storage Tank Configuration</Typography>
         </AccordionSummary>
@@ -46,7 +111,15 @@ const StorageTankSettings = ({
             label="Thermal Conductivity of Tank"
             type="number"
             value={storageTankThermalConductivity}
+            placeholder="0.5"
             onChange={handleFormChange}
+            error={
+              storageTankFormErrors.storageTankThermalConductivityError.length >
+              0
+            }
+            helperText={
+              storageTankFormErrors.storageTankThermalConductivityError
+            }
             sx={{ width: "100%" }}
             InputProps={{
               endAdornment: (
@@ -61,6 +134,8 @@ const StorageTankSettings = ({
               type="number"
               value={storageTankHeight}
               onChange={handleFormChange}
+              error={storageTankFormErrors.storageTankHeightError.length > 0}
+              helperText={storageTankFormErrors.storageTankHeightError}
               InputProps={{
                 endAdornment: <InputAdornment position="end">m</InputAdornment>,
               }}
@@ -71,12 +146,15 @@ const StorageTankSettings = ({
               type="number"
               value={storageTankDiameter}
               onChange={handleFormChange}
+              error={storageTankFormErrors.storageTankDiameterError.length > 0}
+              helperText={storageTankFormErrors.storageTankDiameterError}
               InputProps={{
                 endAdornment: <InputAdornment position="end">m</InputAdornment>,
               }}
             />
           </Box>
           <TextField
+            variant="standard"
             name="storageTankCapacity"
             label="Storage Tank Capacity"
             type="number"
@@ -100,6 +178,8 @@ const StorageTankSettings = ({
             type="number"
             value={fluidInitTemp}
             onChange={handleFormChange}
+            error={storageTankFormErrors.fluidInitTempError.length > 0}
+            helperText={storageTankFormErrors.fluidInitTempError}
             sx={{ width: "100%" }}
             InputProps={{
               endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
@@ -109,8 +189,10 @@ const StorageTankSettings = ({
             name="fluidFinalTemp"
             label="Desired Final Fluid Temperature"
             type="number"
-            value={fluidFinalTemp ? fluidFinalTemp : " "}
+            value={fluidFinalTemp ? fluidFinalTemp : ""}
             onChange={handleFormChange}
+            error={storageTankFormErrors.fluidFinalTempError.length > 0}
+            helperText={storageTankFormErrors.fluidFinalTempError}
             sx={{ width: "100%" }}
             InputProps={{
               endAdornment: <InputAdornment position="end">˚C</InputAdornment>,

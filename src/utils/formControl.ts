@@ -1,4 +1,9 @@
-import { SolarPanelSettings, SolarPanelSettingsErrors } from "../types";
+import {
+  SolarPanelSettings,
+  SolarPanelSettingsErrors,
+  StorageTankSettings,
+  StorageTankSettingsErrors,
+} from "../types";
 
 const formControl = {
   solarPanelSettings: (
@@ -47,6 +52,56 @@ const formControl = {
       errors.panelEfficiencyError = errorMessages.panelEfficiencyErrorMessage;
 
     handleSetSolarPanelFormErrors(errors);
+  },
+
+  storageTankSettings: (
+    {
+      storageTankThermalConductivity,
+      storageTankHeight,
+      storageTankDiameter,
+      fluidInitTemp,
+      fluidFinalTemp,
+    }: StorageTankSettings,
+    handleSetStorageTankErrors: (errors: StorageTankSettingsErrors) => void
+  ) => {
+    const errors = {
+      storageTankThermalConductivityError: "",
+      storageTankHeightError: "",
+      storageTankDiameterError: "",
+      fluidInitTempError: "",
+      fluidFinalTempError: "",
+    };
+
+    const errorMessages = {
+      storageTankThermalConductivityErrorMessage:
+        "Thermal conductivity must be greater than 0",
+      storageTankHeightErrorMessage: "Tank Height must be greater than 0",
+      storageTankDiameterErrorMessage: "Tank Diameter must be greater than 0",
+      fluidInitTempErrorMessage:
+        "Initial Fluid Temperature cannot be left blank",
+      fluidFinalTempErrorMessage:
+        "Final Fluid Temperature cannot be left blank",
+    };
+
+    if (!storageTankThermalConductivity || storageTankThermalConductivity <= 0)
+      errors.storageTankThermalConductivityError =
+        errorMessages.storageTankThermalConductivityErrorMessage;
+
+    if (!storageTankHeight || storageTankHeight <= 0)
+      errors.storageTankHeightError =
+        errorMessages.storageTankHeightErrorMessage;
+
+    if (!storageTankDiameter || storageTankDiameter <= 0)
+      errors.storageTankDiameterError =
+        errorMessages.storageTankDiameterErrorMessage;
+
+    if (!fluidInitTemp)
+      errors.fluidInitTempError = errorMessages.fluidInitTempErrorMessage;
+
+    if (!fluidFinalTemp)
+      errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage;
+
+    handleSetStorageTankErrors(errors);
   },
 };
 
