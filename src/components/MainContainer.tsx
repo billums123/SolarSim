@@ -11,7 +11,7 @@ const MainContainer = () => {
     panelWidth: 1,
     panelLength: 1,
     panelDiameter: 1,
-    panelEfficiency: 15,
+    panelEfficiency: null,
     time: 0,
     storageTankCapacity: 1,
     solarFlux: 1000,

@@ -3,7 +3,7 @@ export interface SolarPanelSettings {
   panelWidth: number;
   panelLength: number;
   panelDiameter: number;
-  panelEfficiency: number;
+  panelEfficiency: number | null;
 }
 
 export interface SolarPanelSettingsErrors {

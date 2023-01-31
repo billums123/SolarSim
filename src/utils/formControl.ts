@@ -43,7 +43,7 @@ const formControl = {
         errors.panelLengthError = errorMessages.panelLengthErrorMessage;
     }
 
-    if (panelEfficiency <= 0 || panelEfficiency > 100)
+    if (!panelEfficiency || panelEfficiency <= 0 || panelEfficiency > 100)
       errors.panelEfficiencyError = errorMessages.panelEfficiencyErrorMessage;
 
     handleSetSolarPanelFormErrors(errors);

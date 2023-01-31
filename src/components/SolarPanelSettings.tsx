@@ -41,13 +41,14 @@ const SolarPanelSettings = ({
       panelWidthError: "",
       panelLengthError: "",
       panelDiameterError: "",
-      panelEfficiencyError: "",
+      panelEfficiencyError: "error",
     });
 
   const handleCheckIfAnyErrorsExist = () => {
     const errorsExist = Object.values(solarPanelFormErrors).some(
       (formError) => formError.length
     );
+    console.log(solarPanelFormErrors);
     errorsExist ? setErrorsExist(true) : setErrorsExist(false);
   };
 
@@ -73,7 +74,6 @@ const SolarPanelSettings = ({
     handleCheckIfAnyErrorsExist();
   }, [solarPanelFormErrors]);
 
-  console.log("ERRORSEXIST", errorsExist, "ERRORS", solarPanelFormErrors);
   return (
     <>
       <Accordion>
@@ -149,6 +149,7 @@ const SolarPanelSettings = ({
             name="panelEfficiency"
             label="Panel Efficiency"
             type="number"
+            placeholder="15"
             value={panelEfficiency}
             onChange={handleFormChange}
             error={solarPanelFormErrors.panelEfficiencyError.length > 0}
