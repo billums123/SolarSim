@@ -80,9 +80,11 @@ const StorageTankSettings = ({
             name="storageTankCapacity"
             label="Storage Tank Capacity"
             type="number"
+            disabled
             value={(
               (Math.PI / 4) *
               Math.pow(storageTankDiameter, 2) *
+              storageTankHeight *
               1000
             ).toFixed(2)}
             onChange={handleFormChange}

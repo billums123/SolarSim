@@ -13,7 +13,11 @@ const InputsContainer = ({
   handleFormChange,
 }: InputsContainerProps) => {
   return (
-    <Paper elevation={10} className="inputs-container">
+    <Paper
+      sx={{ bgcolor: "secondary.main" }}
+      elevation={10}
+      className="inputs-container"
+    >
       <Inputs formValues={formValues} handleFormChange={handleFormChange} />
     </Paper>
   );

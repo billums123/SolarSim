@@ -12,6 +12,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import { SolarPower as SolarPowerIcon } from "@mui/icons-material";
+import { solarPanelFormControl } from "../utils/FormControl";
 import { FormValues } from "../types";
 import "../stylesheets/solar-panel-settings.css";
 
