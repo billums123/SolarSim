@@ -7,6 +7,14 @@ height: 100vh;
 padding-top: 64px;
 }
 
+.scroll-to-top{
+  position: absolute;
+  top: 190%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 900px) {
   .canvas-container{
     height: 100vh;
@@ -14,3 +22,5 @@ padding-top: 64px;
     padding-top: 0px;
   }
 }
+
+

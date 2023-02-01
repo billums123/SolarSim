@@ -12,7 +12,7 @@ const startingFormValues: FormValues = {
   panelWidth: 1,
   panelLength: 1,
   panelDiameter: 1,
-  panelEfficiency: 0,
+  panelEfficiency: null,
   time: 0,
   solarFlux: 1000,
   storageTankThermalConductivity: 0.5,
@@ -66,7 +66,7 @@ const MainContainer = () => {
     setSimulationStatus({ status: "waiting" });
     setFormValues(startingFormValues);
   };
-  console.log("FORM", formValues);
+
   return (
     <Box component="div" className="main-container">
       <InputsContainer
