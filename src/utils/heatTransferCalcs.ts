@@ -47,7 +47,7 @@ const heatTransferCalcs = (formValues: FormValues): HeatTransferResults => {
     solarFlux,
   });
 
-  //Calculate energy required to heat fluid in storage tank from initial temp to final temp
+  //Calculate energy required to heat fluid in storage tank from initial temp to final temp (J)
   const energyRequiredToHeatTankFluid = calculateEnergyRequired({
     storageTankCapacity,
     fluidInitTemp,
@@ -69,12 +69,7 @@ const heatTransferCalcs = (formValues: FormValues): HeatTransferResults => {
     energyRequiredToHeatTankFluid,
     requiredTime,
   };
-  console.log("HEATING ENERGY", energyRequiredToHeatTankFluid);
-  console.log("REQUIRED TIME", requiredTime);
   return results;
-  // console.log("SURFACE AREA", panelSurfaceArea);
-  // console.log("STORAGE TANK CAP", storageTankCapacity);
-  // console.log("SOLAR ENERGY", solarPanelEnergyInput);
 };
 
 const calculateSolarPanelSurfaceArea = ({

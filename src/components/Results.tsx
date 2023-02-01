@@ -11,10 +11,13 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import theme from "../theme";
 import "../stylesheets/results.css";
-import { HeatTransferResults, RequiredTimeResults } from "../types";
+import {
+  EnergyRequiredResults,
+  HeatTransferResults,
+  RequiredTimeResults,
+} from "../types";
 
 interface ResultsProps {
   heatTransferResults: HeatTransferResults;
@@ -56,6 +59,18 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
           // color: theme.palette.primary.light,
         },
       },
+      y1: {
+        title: {
+          display: true,
+          text: "Energy Required (kJ)",
+        },
+        type: "linear" as const,
+        display: true,
+        position: "right" as const,
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
     },
     plugins: {
       legend: {
@@ -68,27 +83,51 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
     },
   };
 
-  let labels = ["0", "1", "2", "3", "4", "5"];
+  //default labels values
+  let defaultLabelValues = ["0", "1", "2", "3", "4", "5"];
+  let defaultDataValues = [0, 1, 2, 3, 4, 5];
+
+  let labels = defaultLabelValues;
+  let tempDataValues = defaultDataValues;
+  let energyDataValues = defaultDataValues;
+
   if (calculationComplete) {
+    //create time labels
     let timeSum = 0;
-    labels = (requiredTime as RequiredTimeResults[]).map(
-      (measurement, index) => {
-        timeSum += measurement.time;
-        return String((timeSum / 3600).toFixed(2));
+    labels = (requiredTime as RequiredTimeResults[]).map((measurement) => {
+      timeSum += measurement.time;
+      return String((timeSum / 3600).toFixed(2));
+    });
+
+    //create datapoints for energy required and fluid temperature
+    let energyTotal = 0;
+    tempDataValues = [];
+    energyDataValues = [];
+    (energyRequiredToHeatTankFluid as EnergyRequiredResults[]).forEach(
+      (measurement) => {
+        energyTotal += measurement.energy;
+        tempDataValues.push(measurement.currentFluidTemp);
+        energyDataValues.push(energyTotal / 1000);
       }
     );
   }
 
-  console.log(labels);
   const chartData = {
     labels,
     datasets: [
       {
         fill: true,
-        label: "Dataset 2",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
+        data: tempDataValues,
         borderColor: `${theme.palette.primary.main}EE`,
         backgroundColor: `${theme.palette.primary.light}AA`,
+        yAxisID: "y",
+      },
+      {
+        fill: true,
+        data: energyDataValues,
+        borderColor: `${theme.palette.primary.main}00`,
+        backgroundColor: `${theme.palette.primary.light}00`,
+        yAxisID: "y1",
       },
     ],
   };

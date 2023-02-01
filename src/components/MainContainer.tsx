@@ -33,7 +33,7 @@ const MainContainer = () => {
     storageTankDiameter: 1,
     fluidInitTemp: 20,
     fluidFinalTemp: null,
-    numberOfIncrements: 20,
+    numberOfIncrements: 10,
   });
 
   const handleFormChange = (e: any) => {
@@ -41,7 +41,6 @@ const MainContainer = () => {
   };
 
   const handleRunSimulation = () => {
-    console.log("RUNNING SIMULATION)");
     setSimulationStatus(true);
     const results = heatTransferCalcs(formValues);
     setHeatTransferResults(results);
@@ -50,7 +49,6 @@ const MainContainer = () => {
     }, 2000);
   };
 
-  // console.log("RESULTS", heatTransferResults);
   return (
     <Box component="div" className="main-container">
       <InputsContainer
