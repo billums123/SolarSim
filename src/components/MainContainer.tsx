@@ -6,9 +6,11 @@ import "../stylesheets/main-container.css";
 import { FormValues, HeatTransferResults } from "../types";
 import Results from "./Results";
 import heatTransferCalcs from "../utils/heatTransferCalcs";
+import ResultsModal from "./ResultsModal";
 
 const MainContainer = () => {
   const [simulationStatus, setSimulationStatus] = useState(false);
+  const [resultsModalOpen, setResultsModalOpen] = useState(false);
 
   const [heatTransferResults, setHeatTransferResults] =
     useState<HeatTransferResults>({
@@ -49,6 +51,14 @@ const MainContainer = () => {
     }, 2000);
   };
 
+  const handleOpenResultsModal = () => {
+    setResultsModalOpen(true);
+  };
+
+  const handleCloseResultsModal = () => {
+    setResultsModalOpen(false);
+  };
+
   return (
     <Box component="div" className="main-container">
       <InputsContainer
@@ -56,9 +66,15 @@ const MainContainer = () => {
         handleFormChange={handleFormChange}
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
+        handleOpenResultsModal={handleOpenResultsModal}
       />
-      <Results heatTransferResults={heatTransferResults} />
-      {/* <CanvasContainer formValues={formValues} /> */}
+      <ResultsModal
+        resultsModalOpen={resultsModalOpen}
+        handleCloseResultsModal={handleCloseResultsModal}
+        heatTransferResults={heatTransferResults}
+      />
+
+      <CanvasContainer formValues={formValues} />
     </Box>
   );
 };

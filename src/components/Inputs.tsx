@@ -1,11 +1,4 @@
-import {
-  Box,
-  TextField,
-  Divider,
-  Button,
-  Paper,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Divider, Button, Paper, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import "../stylesheets/inputs.css";
 import { FormValues, GlobalFormErrors, SetGlobalFormErrors } from "../types";
@@ -17,6 +10,7 @@ interface InputsProps {
   handleFormChange: (event: any) => void;
   handleRunSimulation: () => void;
   simulationStatus: boolean;
+  handleOpenResultsModal: () => void;
 }
 
 const Inputs = ({
@@ -24,6 +18,7 @@ const Inputs = ({
   handleFormChange,
   handleRunSimulation,
   simulationStatus,
+  handleOpenResultsModal,
 }: InputsProps) => {
   const { solarFlux } = formValues;
 
@@ -54,14 +49,6 @@ const Inputs = ({
           globalFormErrors={globalFormErrors}
           handleSetGlobalFormErrors={handleSetGlobalFormErrors}
         />
-        {/* <TextField
-          name="solarFlux"
-          label="Solar Flux"
-          type="number"
-          value={solarFlux}
-          onChange={handleFormChange}
-          sx={{ width: "100%" }}
-        /> */}
       </Paper>
       <Box component="div" className="run-simulation">
         <Button
@@ -82,6 +69,7 @@ const Inputs = ({
         >
           {simulationStatus ? "" : "RUN SIMULATION"}
         </Button>
+        <Button onClick={handleOpenResultsModal}>MODAL</Button>
       </Box>
     </Box>
   );

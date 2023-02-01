@@ -1,18 +1,10 @@
 .results {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  flex: 1;
-  height: 100vh;
-  padding-top: 64px;
+  padding: 10;
   }
   
-  @media (max-width: 900px) {
-    .results{
-      height: 100vh;
-      width: 100%;
-      padding-top: 0px;
-    }
-  }
   

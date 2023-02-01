@@ -53,7 +53,7 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
       y: {
         title: {
           display: true,
-          text: "Storage Tank Fluid Temperature (C˚)",
+          text: "Fluid Temperature (C˚)",
         },
         grid: {
           // color: theme.palette.primary.light,
@@ -78,6 +78,7 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
       },
       title: {
         display: true,
+        fullSize: false,
         text: "Storage Tank Fluid Temperature vs. Time",
       },
     },
@@ -139,7 +140,7 @@ const Results = ({ heatTransferResults }: ResultsProps) => {
   const { chartData, chartOptions } = formatData(heatTransferResults);
   return (
     <Box component="div" className="results">
-      <Line options={chartOptions} data={chartData} />
+      <Line style={{ margin: 5 }} options={chartOptions} data={chartData} />
     </Box>
   );
 };

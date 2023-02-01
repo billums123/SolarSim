@@ -8,6 +8,7 @@ interface InputsContainerProps {
   handleFormChange: (event: any) => void;
   handleRunSimulation: () => void;
   simulationStatus: boolean;
+  handleOpenResultsModal: () => void;
 }
 
 const InputsContainer = ({
@@ -15,6 +16,7 @@ const InputsContainer = ({
   handleFormChange,
   handleRunSimulation,
   simulationStatus,
+  handleOpenResultsModal,
 }: InputsContainerProps) => {
   return (
     <Paper
@@ -27,6 +29,7 @@ const InputsContainer = ({
         handleFormChange={handleFormChange}
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
+        handleOpenResultsModal={handleOpenResultsModal}
       />
     </Paper>
   );
