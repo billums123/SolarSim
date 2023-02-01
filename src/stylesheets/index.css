@@ -21,9 +21,33 @@
   align-items: center;
 }
 
+.svg {
+  z-index: 20;
+  width: 150px;
+  top: -10px;
+  left: calc(50% - var(--width));
+  position: absolute;
+  animation: rotate 100s linear infinite;
+}
+
 @media (max-width: 900px) {
   .app{
     min-height: 200vh;
     display: block;
   }
+  .svg{
+    width: 130px;
+    top: -35px;
+    left: calc(50% - 65px);
+  }
 }
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

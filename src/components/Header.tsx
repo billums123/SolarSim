@@ -14,8 +14,8 @@ const Header = () => {
           <Typography variant="h4" component="div">
             <strong style={{ color: theme.palette.secondary.main }}>
               Solar
+              <strong style={{ color: theme.palette.primary.main }}>Sim</strong>
             </strong>
-            <strong style={{ color: theme.palette.primary.main }}>Sim</strong>
           </Typography>
         </Toolbar>
       </AppBar>
