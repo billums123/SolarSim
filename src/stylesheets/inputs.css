@@ -28,7 +28,7 @@
   
   @media (max-width: 600px) {
     .inputs-group{
-      width: 100%;
+      width: 90%;
     }
   }
   .run-simulation{

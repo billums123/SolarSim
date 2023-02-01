@@ -29,7 +29,7 @@ const formControl = {
       panelWidthErrorMessage: "Width must be greater than 0",
       panelLengthErrorMessage: "Length must be greater than 0",
       panelEfficiencyErrorMessage:
-        "Efficiency must be greater than 0 and less than 100",
+        "Efficiency must be greater than 0% and less than 100%",
       reset: "",
     };
     //  Circle Panel Error Handling

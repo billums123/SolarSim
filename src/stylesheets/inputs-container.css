@@ -20,4 +20,9 @@
       padding-top: 54px;
     }
   }
+  @media (max-width: 450px) {
+    .inputs-container{
+      padding-top: 20%;
+    }
+  }
   

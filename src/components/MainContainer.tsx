@@ -4,6 +4,7 @@ import CanvasContainer from "./CanvasContainer";
 import InputsContainer from "./InputsContainer";
 import "../stylesheets/main-container.css";
 import { FormValues } from "../types";
+import Results from "./Results";
 
 const MainContainer = () => {
   const [simulationStatus, setSimulationStatus] = useState(false);
@@ -44,7 +45,8 @@ const MainContainer = () => {
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
       />
-      <CanvasContainer formValues={formValues} />
+      <Results />
+      {/* <CanvasContainer formValues={formValues} /> */}
     </Box>
   );
 };
