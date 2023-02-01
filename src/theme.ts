@@ -14,7 +14,7 @@ const theme = createTheme({
       main: "#525953",
       light: "#6C736D",
       dark: "#39403A",
-      contrastText: "#242424",
+      contrastText: "#f5a700",
     },
     success: {
       main: green.A200,

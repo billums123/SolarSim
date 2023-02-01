@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Paper,
-  CircularProgress,
-  IconButton,
-} from "@mui/material";
-import { RestartAlt as RestartAltIcon } from "@mui/icons-material/";
+import { Box, Button, Paper, CircularProgress } from "@mui/material";
 import "../stylesheets/inputs.css";
 import {
   FormValues,
@@ -56,6 +49,16 @@ const Inputs = ({
   return (
     <Box component="div" className="inputs">
       <Paper elevation={3} className="inputs-group">
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleResetButtonClick}
+          sx={{
+            width: 150,
+          }}
+        >
+          Reset Values
+        </Button>
         <SolarPanelSettings
           formValues={formValues}
           handleFormChange={handleFormChange}
@@ -70,56 +73,40 @@ const Inputs = ({
         />
       </Paper>
       <Box component="div" className="run-simulation">
-        {simulationStatus.status !== "complete" ? (
+        <Button
+          size="large"
+          disabled={
+            Object.values(globalFormErrors).some(
+              (globalFormError) => globalFormError === true
+            ) || simulationStatus.status === "inProgress"
+          }
+          variant="contained"
+          onClick={handleRunSimulation}
+          sx={{ color: "secondary.main", minWidth: 200 }}
+          endIcon={
+            simulationStatus.status === "inProgress" && (
+              <CircularProgress size={24} sx={{ color: "primary.main" }} />
+            )
+          }
+        >
+          {simulationStatus.status === "inProgress" ? "" : "RUN SIMULATION"}
+        </Button>
+        {simulationStatus.status === "complete" && (
           <Button
             size="large"
-            disabled={
-              Object.values(globalFormErrors).some(
-                (globalFormError) => globalFormError === true
-              ) || simulationStatus.status === "inProgress"
-            }
             variant="contained"
-            onClick={handleRunSimulation}
-            sx={{ color: "secondary.main", minWidth: 200 }}
-            endIcon={
-              simulationStatus.status === "inProgress" && (
-                <CircularProgress size={24} sx={{ color: "primary.main" }} />
-              )
-            }
+            onClick={handleOpenResultsModal}
+            sx={{
+              color: "secondary.main",
+              bgcolor: "success.main",
+              minWidth: 125,
+              ":hover": {
+                bgcolor: "success.dark",
+              },
+            }}
           >
-            {simulationStatus.status === "inProgress" ? "" : "RUN SIMULATION"}
+            Results
           </Button>
-        ) : (
-          <Box component="div" className="results-buttons">
-            <IconButton
-              sx={{
-                color: "primary.main",
-                bgcolor: "primary.contrastText",
-                boxShadow: 3,
-                ":hover": {
-                  bgcolor: "secondary.main",
-                },
-              }}
-              onClick={handleResetButtonClick}
-            >
-              <RestartAltIcon />
-            </IconButton>
-            <Button
-              size="large"
-              variant="contained"
-              onClick={handleOpenResultsModal}
-              sx={{
-                color: "secondary.main",
-                bgcolor: "success.main",
-                minWidth: 125,
-                ":hover": {
-                  bgcolor: "success.dark",
-                },
-              }}
-            >
-              Show Results
-            </Button>
-          </Box>
         )}
       </Box>
     </Box>

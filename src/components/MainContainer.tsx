@@ -42,7 +42,6 @@ const MainContainer = () => {
   const [formValues, setFormValues] = useState(startingFormValues);
 
   const handleFormChange = (e: any) => {
-    console.log(e.target.value, typeof e.target.value);
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
