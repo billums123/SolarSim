@@ -26,6 +26,9 @@ const heatTransferCalcs = (formValues: FormValues): HeatTransferResults => {
     numberOfIncrements,
   } = formValues;
 
+  Object.entries(formValues).forEach(([key, value]) =>
+    console.log("KEY", key, "TYPE", typeof value)
+  );
   //Calculate surface area of solar panel (m^2)
   const panelSurfaceArea = calculateSolarPanelSurfaceArea({
     shapeOfPanel,
@@ -69,6 +72,10 @@ const heatTransferCalcs = (formValues: FormValues): HeatTransferResults => {
     energyRequiredToHeatTankFluid,
     requiredTime,
   };
+
+  console.log("ENERGY", energyRequiredToHeatTankFluid);
+  console.log("TIME", requiredTime);
+
   return results;
 };
 
@@ -110,7 +117,9 @@ const calculateEnergyRequired = ({
   densityWater *= 1000; // g/m^3
   const specificHeatWater = 4.184; // J/g˚C
   const massOfWaterInTank = storageTankCapacity * densityWater; //convert storageTankCapacity to m^3 then calculate mass
-
+  fluidInitTemp = Number(fluidInitTemp);
+  fluidFinalTemp = Number(fluidFinalTemp);
+  console.log("HEEER", typeof fluidFinalTemp, typeof fluidInitTemp);
   let currentFluidTemp = fluidInitTemp;
 
   const requiredEnergy: EnergyRequiredResults[] = [

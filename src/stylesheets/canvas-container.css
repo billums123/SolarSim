@@ -9,7 +9,7 @@ padding-top: 64px;
 
 .scroll-to-top{
   position: absolute;
-  top: 190%;
+  top: 190vh;
   width: 100%;
   display: flex;
   justify-content: center;

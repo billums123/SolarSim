@@ -92,6 +92,7 @@ const StorageTankSettings = ({
     handleCheckIfAnyErrorsExist();
   }, [storageTankFormErrors]);
 
+  console.log("FLUID", fluidInitTemp, typeof fluidInitTemp);
   return (
     <>
       <Accordion>
@@ -198,7 +199,7 @@ const StorageTankSettings = ({
             name="fluidFinalTemp"
             label="Desired Final Fluid Temperature"
             type="number"
-            value={fluidFinalTemp ? fluidFinalTemp : ""}
+            value={fluidFinalTemp ? fluidFinalTemp : 0}
             onChange={handleFormChange}
             error={storageTankFormErrors.fluidFinalTempError.length > 0}
             helperText={storageTankFormErrors.fluidFinalTempError}
