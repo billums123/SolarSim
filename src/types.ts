@@ -90,3 +90,7 @@ export interface StorageTankSettingsErrors {
   fluidInitTempError: string;
   fluidFinalTempError: string;
 }
+
+export interface SimulationStatus {
+  status: "waiting" | "inProgress" | "complete";
+}

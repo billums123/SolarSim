@@ -1,7 +1,19 @@
-import { Box, Divider, Button, Paper, CircularProgress } from "@mui/material";
 import { useState } from "react";
+import {
+  Box,
+  Button,
+  Paper,
+  CircularProgress,
+  IconButton,
+} from "@mui/material";
+import { RestartAlt as RestartAltIcon } from "@mui/icons-material/";
 import "../stylesheets/inputs.css";
-import { FormValues, GlobalFormErrors, SetGlobalFormErrors } from "../types";
+import {
+  FormValues,
+  GlobalFormErrors,
+  SetGlobalFormErrors,
+  SimulationStatus,
+} from "../types";
 import SolarPanelSettings from "./SolarPanelSettings";
 import StorageTankSettings from "./StorageTankSettings";
 
@@ -9,8 +21,9 @@ interface InputsProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
   handleRunSimulation: () => void;
-  simulationStatus: boolean;
+  simulationStatus: SimulationStatus;
   handleOpenResultsModal: () => void;
+  handleResetSimulation: () => void;
 }
 
 const Inputs = ({
@@ -19,6 +32,7 @@ const Inputs = ({
   handleRunSimulation,
   simulationStatus,
   handleOpenResultsModal,
+  handleResetSimulation,
 }: InputsProps) => {
   const { solarFlux } = formValues;
 
@@ -27,11 +41,8 @@ const Inputs = ({
     storageTankSettingsErrors: true,
   });
 
-  const handleSetGlobalFormErrors = async ({
-    name,
-    error,
-  }: SetGlobalFormErrors) => {
-    await setGlobalFormErrors({ ...globalFormErrors, [name]: error });
+  const handleSetGlobalFormErrors = ({ name, error }: SetGlobalFormErrors) => {
+    setGlobalFormErrors({ ...globalFormErrors, [name]: error });
   };
 
   return (
@@ -51,25 +62,57 @@ const Inputs = ({
         />
       </Paper>
       <Box component="div" className="run-simulation">
-        <Button
-          size="large"
-          disabled={
-            Object.values(globalFormErrors).some(
-              (globalFormError) => globalFormError === true
-            ) || simulationStatus
-          }
-          variant="contained"
-          onClick={handleRunSimulation}
-          sx={{ color: "secondary.main", minWidth: 200 }}
-          endIcon={
-            simulationStatus && (
-              <CircularProgress size={24} sx={{ color: "primary.main" }} />
-            )
-          }
-        >
-          {simulationStatus ? "" : "RUN SIMULATION"}
-        </Button>
-        <Button onClick={handleOpenResultsModal}>MODAL</Button>
+        {simulationStatus.status !== "complete" ? (
+          <Button
+            size="large"
+            disabled={
+              Object.values(globalFormErrors).some(
+                (globalFormError) => globalFormError === true
+              ) || simulationStatus.status === "inProgress"
+            }
+            variant="contained"
+            onClick={handleRunSimulation}
+            sx={{ color: "secondary.main", minWidth: 200 }}
+            endIcon={
+              simulationStatus.status === "inProgress" && (
+                <CircularProgress size={24} sx={{ color: "primary.main" }} />
+              )
+            }
+          >
+            {simulationStatus.status === "inProgress" ? "" : "RUN SIMULATION"}
+          </Button>
+        ) : (
+          <Box component="div" className="results-buttons">
+            <IconButton
+              sx={{
+                color: "primary.main",
+                bgcolor: "primary.contrastText",
+                boxShadow: 3,
+                ":hover": {
+                  bgcolor: "secondary.main",
+                },
+              }}
+              onClick={handleResetSimulation}
+            >
+              <RestartAltIcon />
+            </IconButton>
+            <Button
+              size="large"
+              variant="contained"
+              onClick={handleOpenResultsModal}
+              sx={{
+                color: "secondary.main",
+                bgcolor: "success.main",
+                minWidth: 125,
+                ":hover": {
+                  bgcolor: "success.dark",
+                },
+              }}
+            >
+              Show Results
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );

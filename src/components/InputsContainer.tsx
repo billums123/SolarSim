@@ -1,14 +1,15 @@
 import { Box, Paper } from "@mui/material";
 import Inputs from "./Inputs";
 import "../stylesheets/inputs-container.css";
-import { FormValues } from "../types";
+import { FormValues, SimulationStatus } from "../types";
 
 interface InputsContainerProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
   handleRunSimulation: () => void;
-  simulationStatus: boolean;
+  simulationStatus: SimulationStatus;
   handleOpenResultsModal: () => void;
+  handleResetSimulation: () => void;
 }
 
 const InputsContainer = ({
@@ -17,6 +18,7 @@ const InputsContainer = ({
   handleRunSimulation,
   simulationStatus,
   handleOpenResultsModal,
+  handleResetSimulation,
 }: InputsContainerProps) => {
   return (
     <Paper
@@ -30,6 +32,7 @@ const InputsContainer = ({
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
         handleOpenResultsModal={handleOpenResultsModal}
+        handleResetSimulation={handleResetSimulation}
       />
     </Paper>
   );

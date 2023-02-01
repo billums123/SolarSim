@@ -96,6 +96,17 @@ const SolarPanelSettings = ({
             bgcolor: globalFormErrors.solarPanelSettingsErrors
               ? "error.main"
               : "success.main",
+
+            ":hover": {
+              bgcolor: globalFormErrors.solarPanelSettingsErrors
+                ? "error.light"
+                : "success.light",
+            },
+            ":focus": {
+              bgcolor: globalFormErrors.solarPanelSettingsErrors
+                ? "error.light"
+                : "success.light",
+            },
           }}
         >
           <Typography>Solar Panel Configuration</Typography>

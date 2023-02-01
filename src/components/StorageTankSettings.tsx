@@ -101,6 +101,17 @@ const StorageTankSettings = ({
             bgcolor: globalFormErrors.storageTankSettingsErrors
               ? "error.main"
               : "success.main",
+
+            ":hover": {
+              bgcolor: globalFormErrors.storageTankSettingsErrors
+                ? "error.light"
+                : "success.light",
+            },
+            ":focus": {
+              bgcolor: globalFormErrors.storageTankSettingsErrors
+                ? "error.light"
+                : "success.light",
+            },
           }}
         >
           <Typography>Storage Tank Configuration</Typography>

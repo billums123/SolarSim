@@ -3,13 +3,15 @@ import { Box } from "@mui/material";
 import CanvasContainer from "./CanvasContainer";
 import InputsContainer from "./InputsContainer";
 import "../stylesheets/main-container.css";
-import { FormValues, HeatTransferResults } from "../types";
+import { FormValues, HeatTransferResults, SimulationStatus } from "../types";
 import Results from "./Results";
 import heatTransferCalcs from "../utils/heatTransferCalcs";
 import ResultsModal from "./ResultsModal";
 
 const MainContainer = () => {
-  const [simulationStatus, setSimulationStatus] = useState(false);
+  const [simulationStatus, setSimulationStatus] = useState<SimulationStatus>({
+    status: "waiting",
+  });
   const [resultsModalOpen, setResultsModalOpen] = useState(false);
 
   const [heatTransferResults, setHeatTransferResults] =
@@ -43,10 +45,10 @@ const MainContainer = () => {
   };
 
   const handleRunSimulation = () => {
-    setSimulationStatus(true);
+    setSimulationStatus({ status: "inProgress" });
     const results = heatTransferCalcs(formValues);
     setTimeout(() => {
-      setSimulationStatus(false);
+      setSimulationStatus({ status: "complete" });
       setHeatTransferResults(results);
     }, 2000);
   };
@@ -59,6 +61,10 @@ const MainContainer = () => {
     setResultsModalOpen(false);
   };
 
+  const handleResetSimulation = () => {
+    setSimulationStatus({ status: "waiting" });
+  };
+
   return (
     <Box component="div" className="main-container">
       <InputsContainer
@@ -67,6 +73,7 @@ const MainContainer = () => {
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
         handleOpenResultsModal={handleOpenResultsModal}
+        handleResetSimulation={handleResetSimulation}
       />
       <ResultsModal
         resultsModalOpen={resultsModalOpen}

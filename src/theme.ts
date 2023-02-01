@@ -18,9 +18,13 @@ const theme = createTheme({
     },
     success: {
       main: green.A200,
+      light: green.A100,
+      dark: green.A400,
     },
     error: {
       main: red.A200,
+      light: red.A100,
+      dark: red.A400,
     },
   },
   spacing: 4,
