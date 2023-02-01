@@ -43,9 +43,9 @@ const MainContainer = () => {
   const handleRunSimulation = () => {
     setSimulationStatus(true);
     const results = heatTransferCalcs(formValues);
-    setHeatTransferResults(results);
     setTimeout(() => {
       setSimulationStatus(false);
+      setHeatTransferResults(results);
     }, 2000);
   };
 
