@@ -7,7 +7,6 @@ export interface SolarPanelSettings {
 }
 
 export interface StorageTankSettings {
-  storageTankCapacity?: number;
   storageTankThermalConductivity: number;
   storageTankHeight: number;
   storageTankDiameter: number;
@@ -22,11 +21,23 @@ export interface FormValues extends SolarPanelSettings, StorageTankSettings {
 
 export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
 
+export type StorageTankCapacity = Pick<
+  StorageTankSettings,
+  "storageTankDiameter" | "storageTankHeight"
+>;
+
 export type SolarPanelEnergy = Pick<
   FormValues,
   "panelEfficiency" | "solarFlux"
 > & {
   surfaceArea: number;
+};
+
+export type StorageTankEnergyRequired = Pick<
+  StorageTankSettings,
+  "fluidInitTemp" | "fluidFinalTemp"
+> & {
+  storageTankCapacity: number;
 };
 
 export interface GlobalFormErrors {

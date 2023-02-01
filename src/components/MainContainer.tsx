@@ -5,6 +5,7 @@ import InputsContainer from "./InputsContainer";
 import "../stylesheets/main-container.css";
 import { FormValues } from "../types";
 import Results from "./Results";
+import heatTransferCalcs from "../utils/heatTransferCalcs";
 
 const MainContainer = () => {
   const [simulationStatus, setSimulationStatus] = useState(false);
@@ -16,7 +17,6 @@ const MainContainer = () => {
     panelDiameter: 1,
     panelEfficiency: null,
     time: 0,
-    storageTankCapacity: 1,
     solarFlux: 1000,
     storageTankThermalConductivity: 0.5,
     storageTankHeight: 1,
@@ -32,6 +32,7 @@ const MainContainer = () => {
   const handleRunSimulation = () => {
     console.log("RUNNING SIMULATION)");
     setSimulationStatus(true);
+    heatTransferCalcs(formValues);
     setTimeout(() => {
       setSimulationStatus(false);
     }, 3000);
