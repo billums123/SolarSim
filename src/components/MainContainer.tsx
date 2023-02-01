@@ -8,6 +8,22 @@ import Results from "./Results";
 import heatTransferCalcs from "../utils/heatTransferCalcs";
 import ResultsModal from "./ResultsModal";
 
+const startingFormValues: FormValues = {
+  shapeOfPanel: "rectangle",
+  panelWidth: 1,
+  panelLength: 1,
+  panelDiameter: 1,
+  panelEfficiency: null,
+  time: 0,
+  solarFlux: 1000,
+  storageTankThermalConductivity: 0.5,
+  storageTankHeight: 1,
+  storageTankDiameter: 1,
+  fluidInitTemp: 20,
+  fluidFinalTemp: null,
+  numberOfIncrements: 10,
+};
+
 const MainContainer = () => {
   const [simulationStatus, setSimulationStatus] = useState<SimulationStatus>({
     status: "waiting",
@@ -24,21 +40,7 @@ const MainContainer = () => {
       requiredTime: null,
     });
 
-  const [formValues, setFormValues] = useState<FormValues>({
-    shapeOfPanel: "rectangle",
-    panelWidth: 1,
-    panelLength: 1,
-    panelDiameter: 1,
-    panelEfficiency: null,
-    time: 0,
-    solarFlux: 1000,
-    storageTankThermalConductivity: 0.5,
-    storageTankHeight: 1,
-    storageTankDiameter: 1,
-    fluidInitTemp: 20,
-    fluidFinalTemp: null,
-    numberOfIncrements: 10,
-  });
+  const [formValues, setFormValues] = useState(startingFormValues);
 
   const handleFormChange = (e: any) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -63,6 +65,7 @@ const MainContainer = () => {
 
   const handleResetSimulation = () => {
     setSimulationStatus({ status: "waiting" });
+    setFormValues(startingFormValues);
   };
 
   return (
