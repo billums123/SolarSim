@@ -45,6 +45,14 @@ const Inputs = ({
     setGlobalFormErrors({ ...globalFormErrors, [name]: error });
   };
 
+  const handleResetButtonClick = () => {
+    setGlobalFormErrors({
+      solarPanelSettingsErrors: true,
+      storageTankSettingsErrors: true,
+    });
+    handleResetSimulation();
+  };
+
   return (
     <Box component="div" className="inputs">
       <Paper elevation={3} className="inputs-group">
@@ -92,7 +100,7 @@ const Inputs = ({
                   bgcolor: "secondary.main",
                 },
               }}
-              onClick={handleResetSimulation}
+              onClick={handleResetButtonClick}
             >
               <RestartAltIcon />
             </IconButton>

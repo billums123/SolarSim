@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Fab } from "@mui/material";
 import CanvasContainer from "./CanvasContainer";
 import InputsContainer from "./InputsContainer";
 import "../stylesheets/main-container.css";
 import { FormValues, HeatTransferResults, SimulationStatus } from "../types";
-import Results from "./Results";
 import heatTransferCalcs from "../utils/heatTransferCalcs";
 import ResultsModal from "./ResultsModal";
 
@@ -13,7 +12,7 @@ const startingFormValues: FormValues = {
   panelWidth: 1,
   panelLength: 1,
   panelDiameter: 1,
-  panelEfficiency: null,
+  panelEfficiency: 0,
   time: 0,
   solarFlux: 1000,
   storageTankThermalConductivity: 0.5,
@@ -67,7 +66,7 @@ const MainContainer = () => {
     setSimulationStatus({ status: "waiting" });
     setFormValues(startingFormValues);
   };
-
+  console.log("FORM", formValues);
   return (
     <Box component="div" className="main-container">
       <InputsContainer

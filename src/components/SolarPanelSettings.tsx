@@ -55,6 +55,7 @@ const SolarPanelSettings = ({
     const errorsExist = Object.values(solarPanelFormErrors).some(
       (formError) => formError.length
     );
+    console.log("EXIST", errorsExist);
     errorsExist
       ? handleSetGlobalFormErrors({
           name: "solarPanelSettingsErrors",
@@ -72,6 +73,7 @@ const SolarPanelSettings = ({
   };
 
   useEffect(() => {
+    console.log("HERE");
     formControl.solarPanelSettings(
       {
         shapeOfPanel,
@@ -87,6 +89,8 @@ const SolarPanelSettings = ({
   useEffect(() => {
     handleCheckIfAnyErrorsExist();
   }, [solarPanelFormErrors]);
+  console.log("SOLAR ERRORS", solarPanelFormErrors);
+  console.log("GLOBAL ERRORS", globalFormErrors);
   return (
     <>
       <Accordion>
