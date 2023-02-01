@@ -1,4 +1,11 @@
-import { Box, TextField, Divider, Button, Paper } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Divider,
+  Button,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
 import { useState } from "react";
 import "../stylesheets/inputs.css";
 import { FormValues, GlobalFormErrors, SetGlobalFormErrors } from "../types";
@@ -8,9 +15,16 @@ import StorageTankSettings from "./StorageTankSettings";
 interface InputsProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
+  handleRunSimulation: () => void;
+  simulationStatus: boolean;
 }
 
-const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
+const Inputs = ({
+  formValues,
+  handleFormChange,
+  handleRunSimulation,
+  simulationStatus,
+}: InputsProps) => {
   const { solarFlux } = formValues;
 
   const [globalFormErrors, setGlobalFormErrors] = useState<GlobalFormErrors>({
@@ -52,13 +66,21 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
       <Box component="div" className="run-simulation">
         <Button
           size="large"
-          disabled={Object.values(globalFormErrors).some(
-            (globalFormError) => globalFormError === true
-          )}
+          disabled={
+            Object.values(globalFormErrors).some(
+              (globalFormError) => globalFormError === true
+            ) || simulationStatus
+          }
           variant="contained"
-          sx={{ color: "secondary.main" }}
+          onClick={handleRunSimulation}
+          sx={{ color: "secondary.main", minWidth: 200 }}
+          endIcon={
+            simulationStatus && (
+              <CircularProgress size={24} sx={{ color: "primary.main" }} />
+            )
+          }
         >
-          RUN SIMULATION
+          {simulationStatus ? "" : "RUN SIMULATION"}
         </Button>
       </Box>
     </Box>

@@ -6,11 +6,15 @@ import { FormValues } from "../types";
 interface InputsContainerProps {
   formValues: FormValues;
   handleFormChange: (event: any) => void;
+  handleRunSimulation: () => void;
+  simulationStatus: boolean;
 }
 
 const InputsContainer = ({
   formValues,
   handleFormChange,
+  handleRunSimulation,
+  simulationStatus,
 }: InputsContainerProps) => {
   return (
     <Paper
@@ -18,7 +22,12 @@ const InputsContainer = ({
       elevation={10}
       className="inputs-container"
     >
-      <Inputs formValues={formValues} handleFormChange={handleFormChange} />
+      <Inputs
+        formValues={formValues}
+        handleFormChange={handleFormChange}
+        handleRunSimulation={handleRunSimulation}
+        simulationStatus={simulationStatus}
+      />
     </Paper>
   );
 };

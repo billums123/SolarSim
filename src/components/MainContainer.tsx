@@ -6,6 +6,8 @@ import "../stylesheets/main-container.css";
 import { FormValues } from "../types";
 
 const MainContainer = () => {
+  const [simulationStatus, setSimulationStatus] = useState(false);
+
   const [formValues, setFormValues] = useState<FormValues>({
     shapeOfPanel: "rectangle",
     panelWidth: 1,
@@ -26,11 +28,21 @@ const MainContainer = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
+  const handleRunSimulation = () => {
+    console.log("RUNNING SIMULATION)");
+    setSimulationStatus(true);
+    setTimeout(() => {
+      setSimulationStatus(false);
+    }, 3000);
+  };
+
   return (
     <Box component="div" className="main-container">
       <InputsContainer
         formValues={formValues}
         handleFormChange={handleFormChange}
+        handleRunSimulation={handleRunSimulation}
+        simulationStatus={simulationStatus}
       />
       <CanvasContainer formValues={formValues} />
     </Box>
