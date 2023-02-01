@@ -3,12 +3,21 @@ import { Box } from "@mui/material";
 import CanvasContainer from "./CanvasContainer";
 import InputsContainer from "./InputsContainer";
 import "../stylesheets/main-container.css";
-import { FormValues } from "../types";
+import { FormValues, HeatTransferResults } from "../types";
 import Results from "./Results";
 import heatTransferCalcs from "../utils/heatTransferCalcs";
 
 const MainContainer = () => {
   const [simulationStatus, setSimulationStatus] = useState(false);
+
+  const [heatTransferResults, setHeatTransferResults] =
+    useState<HeatTransferResults>({
+      panelSurfaceArea: null,
+      storageTankCapacity: null,
+      solarPanelEnergyInput: null,
+      energyRequiredToHeatTankFluid: null,
+      requiredTime: null,
+    });
 
   const [formValues, setFormValues] = useState<FormValues>({
     shapeOfPanel: "rectangle",
@@ -32,12 +41,14 @@ const MainContainer = () => {
   const handleRunSimulation = () => {
     console.log("RUNNING SIMULATION)");
     setSimulationStatus(true);
-    heatTransferCalcs(formValues);
+    const results = heatTransferCalcs(formValues);
+    setHeatTransferResults(results);
     setTimeout(() => {
       setSimulationStatus(false);
-    }, 3000);
+    }, 2000);
   };
 
+  console.log("RESULTS", heatTransferResults);
   return (
     <Box component="div" className="main-container">
       <InputsContainer
@@ -46,7 +57,7 @@ const MainContainer = () => {
         handleRunSimulation={handleRunSimulation}
         simulationStatus={simulationStatus}
       />
-      <Results />
+      <Results heatTransferResults={heatTransferResults} />
       {/* <CanvasContainer formValues={formValues} /> */}
     </Box>
   );

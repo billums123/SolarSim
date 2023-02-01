@@ -30,7 +30,7 @@ export type SolarPanelEnergy = Pick<
   FormValues,
   "panelEfficiency" | "solarFlux"
 > & {
-  surfaceArea: number;
+  panelSurfaceArea: number;
 };
 
 export type StorageTankEnergyRequired = Pick<
@@ -39,6 +39,14 @@ export type StorageTankEnergyRequired = Pick<
 > & {
   storageTankCapacity: number;
 };
+
+export interface HeatTransferResults {
+  panelSurfaceArea: number | null;
+  storageTankCapacity: number | null;
+  solarPanelEnergyInput: number | null;
+  energyRequiredToHeatTankFluid: number | null;
+  requiredTime: number | null;
+}
 
 export interface GlobalFormErrors {
   solarPanelSettingsErrors: boolean;

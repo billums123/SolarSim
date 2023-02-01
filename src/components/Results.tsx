@@ -14,6 +14,7 @@ import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import theme from "../theme";
 import "../stylesheets/results.css";
+import { HeatTransferResults } from "../types";
 
 ChartJS.register(
   CategoryScale,
@@ -26,58 +27,75 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  scales: {
-    x: {
+const formatData = (heatTransferResults) => {
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Time (hours)",
+        },
+        grid: {
+          // color: theme.palette.primary.light,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Storage Tank Fluid Temperature (C˚)",
+        },
+        grid: {
+          // color: theme.palette.primary.light,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
       title: {
         display: true,
-        text: "Time (hours)",
-      },
-      grid: {
-        // color: theme.palette.primary.light,
+        text: "Storage Tank Fluid Temperature vs. Time",
       },
     },
-    y: {
-      title: {
-        display: true,
-        text: "Storage Tank Fluid Temperature (C˚)",
+  };
+
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: "Dataset 2",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
+        borderColor: `${theme.palette.primary.main}EE`,
+        backgroundColor: `${theme.palette.primary.light}AA`,
       },
-      grid: {
-        // color: theme.palette.primary.light,
-      },
-    },
-  },
-  plugins: {
-    legend: {
-      display: false,
-    },
-    title: {
-      display: true,
-      text: "Storage Tank Fluid Temperature vs. Time",
-    },
-  },
+    ],
+  };
+
+  return { chartData, chartOptions };
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+interface ResultsProps {
+  heatTransferResults: HeatTransferResults;
+}
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
-      borderColor: `${theme.palette.primary.main}EE`,
-      backgroundColor: `${theme.palette.primary.light}AA`,
-    },
-  ],
-};
-
-const Results = () => {
+const Results = ({ heatTransferResults }: ResultsProps) => {
+  const { chartData, chartOptions } = formatData(heatTransferResults);
   return (
     <Box component="div" className="results">
-      <Line options={options} data={data} />
+      <Line options={chartOptions} data={chartData} />
     </Box>
   );
 };

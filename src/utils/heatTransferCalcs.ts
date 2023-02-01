@@ -1,12 +1,13 @@
 import {
   FormValues,
+  HeatTransferResults,
   SolarPanelEnergy,
   StorageTankCapacity,
   StorageTankEnergyRequired,
   SurfaceArea,
 } from "../types";
 
-const heatTransferCalcs = (formValues: FormValues) => {
+const heatTransferCalcs = (formValues: FormValues): HeatTransferResults => {
   const {
     shapeOfPanel,
     panelWidth,
@@ -22,7 +23,7 @@ const heatTransferCalcs = (formValues: FormValues) => {
   } = formValues;
 
   //Calculate surface area of solar panel (m^2)
-  const surfaceArea = calculateSolarPanelSurfaceArea({
+  const panelSurfaceArea = calculateSolarPanelSurfaceArea({
     shapeOfPanel,
     panelDiameter,
     panelWidth,
@@ -37,7 +38,7 @@ const heatTransferCalcs = (formValues: FormValues) => {
 
   //Calculate energy produced my solar panel (W)
   const solarPanelEnergyInput = calculateSolarPanelEnergy({
-    surfaceArea,
+    panelSurfaceArea,
     panelEfficiency,
     solarFlux,
   });
@@ -50,7 +51,17 @@ const heatTransferCalcs = (formValues: FormValues) => {
   });
 
   const requiredTime = energyRequiredToHeatTankFluid / solarPanelEnergyInput;
-  console.log("SURFACE AREA", surfaceArea);
+
+  const results = {
+    panelSurfaceArea,
+    storageTankCapacity,
+    solarPanelEnergyInput,
+    energyRequiredToHeatTankFluid,
+    requiredTime,
+  };
+
+  return results;
+  console.log("SURFACE AREA", panelSurfaceArea);
   console.log("STORAGE TANK CAP", storageTankCapacity);
   console.log("SOLAR ENERGY", solarPanelEnergyInput);
   console.log("HEATING ENERGY", energyRequiredToHeatTankFluid);
@@ -78,11 +89,11 @@ const calculateStorageTankCapacity = ({
 };
 
 const calculateSolarPanelEnergy = ({
-  surfaceArea,
+  panelSurfaceArea,
   panelEfficiency,
   solarFlux,
 }: SolarPanelEnergy) => {
-  return (surfaceArea * solarFlux * (panelEfficiency as number)) / 100;
+  return (panelSurfaceArea * solarFlux * (panelEfficiency as number)) / 100;
 };
 
 const calculateEnergyRequired = ({
