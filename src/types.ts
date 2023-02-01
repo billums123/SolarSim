@@ -20,6 +20,15 @@ export interface FormValues extends SolarPanelSettings, StorageTankSettings {
   solarFlux: number;
 }
 
+export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
+
+export type SolarPanelEnergy = Pick<
+  FormValues,
+  "panelEfficiency" | "solarFlux"
+> & {
+  surfaceArea: number;
+};
+
 export interface GlobalFormErrors {
   solarPanelSettingsErrors: boolean;
   storageTankSettingsErrors: boolean;
