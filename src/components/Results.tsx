@@ -14,7 +14,11 @@ import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import theme from "../theme";
 import "../stylesheets/results.css";
-import { HeatTransferResults } from "../types";
+import { HeatTransferResults, RequiredTimeResults } from "../types";
+
+interface ResultsProps {
+  heatTransferResults: HeatTransferResults;
+}
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +31,10 @@ ChartJS.register(
   Legend
 );
 
-const formatData = (heatTransferResults) => {
+const formatData = (heatTransferResults: HeatTransferResults) => {
+  const { calculationComplete, energyRequiredToHeatTankFluid, requiredTime } =
+    heatTransferResults;
+
   const chartOptions = {
     responsive: true,
     scales: {
@@ -61,16 +68,18 @@ const formatData = (heatTransferResults) => {
     },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  let labels = ["0", "1", "2", "3", "4", "5"];
+  if (calculationComplete) {
+    let timeSum = 0;
+    labels = (requiredTime as RequiredTimeResults[]).map(
+      (measurement, index) => {
+        timeSum += measurement.time;
+        return String((timeSum / 3600).toFixed(2));
+      }
+    );
+  }
 
+  console.log(labels);
   const chartData = {
     labels,
     datasets: [
@@ -86,10 +95,6 @@ const formatData = (heatTransferResults) => {
 
   return { chartData, chartOptions };
 };
-
-interface ResultsProps {
-  heatTransferResults: HeatTransferResults;
-}
 
 const Results = ({ heatTransferResults }: ResultsProps) => {
   const { chartData, chartOptions } = formatData(heatTransferResults);

@@ -17,6 +17,7 @@ export interface StorageTankSettings {
 export interface FormValues extends SolarPanelSettings, StorageTankSettings {
   time: number;
   solarFlux: number;
+  numberOfIncrements: number | null;
 }
 
 export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
@@ -34,18 +35,35 @@ export type SolarPanelEnergy = Pick<
 };
 
 export type StorageTankEnergyRequired = Pick<
-  StorageTankSettings,
-  "fluidInitTemp" | "fluidFinalTemp"
+  FormValues,
+  "fluidInitTemp" | "fluidFinalTemp" | "numberOfIncrements"
 > & {
   storageTankCapacity: number;
 };
 
+export type EnergyRequiredResults = {
+  step: number;
+  currentFluidTemp: number;
+  energy: number;
+};
+
+export interface RequiredTime {
+  energyRequiredToHeatTankFluid: EnergyRequiredResults[];
+  solarPanelEnergyInput: number;
+}
+
+export interface RequiredTimeResults {
+  step: number;
+  time: number;
+}
+
 export interface HeatTransferResults {
+  calculationComplete: boolean;
   panelSurfaceArea: number | null;
   storageTankCapacity: number | null;
   solarPanelEnergyInput: number | null;
-  energyRequiredToHeatTankFluid: number | null;
-  requiredTime: number | null;
+  energyRequiredToHeatTankFluid: EnergyRequiredResults[] | null;
+  requiredTime: RequiredTimeResults[] | null;
 }
 
 export interface GlobalFormErrors {

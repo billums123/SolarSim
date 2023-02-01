@@ -12,6 +12,7 @@ const MainContainer = () => {
 
   const [heatTransferResults, setHeatTransferResults] =
     useState<HeatTransferResults>({
+      calculationComplete: false,
       panelSurfaceArea: null,
       storageTankCapacity: null,
       solarPanelEnergyInput: null,
@@ -32,6 +33,7 @@ const MainContainer = () => {
     storageTankDiameter: 1,
     fluidInitTemp: 20,
     fluidFinalTemp: null,
+    numberOfIncrements: 20,
   });
 
   const handleFormChange = (e: any) => {
@@ -48,7 +50,7 @@ const MainContainer = () => {
     }, 2000);
   };
 
-  console.log("RESULTS", heatTransferResults);
+  // console.log("RESULTS", heatTransferResults);
   return (
     <Box component="div" className="main-container">
       <InputsContainer
