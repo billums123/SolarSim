@@ -9,6 +9,7 @@ import {
 } from "../types";
 import SolarPanelSettings from "./SolarPanelSettings";
 import StorageTankSettings from "./StorageTankSettings";
+import ResultsSettings from "./ResultsSettings";
 
 interface InputsProps {
   formValues: FormValues;
@@ -66,6 +67,12 @@ const Inputs = ({
           handleSetGlobalFormErrors={handleSetGlobalFormErrors}
         />
         <StorageTankSettings
+          formValues={formValues}
+          handleFormChange={handleFormChange}
+          globalFormErrors={globalFormErrors}
+          handleSetGlobalFormErrors={handleSetGlobalFormErrors}
+        />
+        <ResultsSettings
           formValues={formValues}
           handleFormChange={handleFormChange}
           globalFormErrors={globalFormErrors}

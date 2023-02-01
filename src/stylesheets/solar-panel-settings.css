@@ -1,3 +1,7 @@
+.solar-panel-settings {
+  width: 100%
+}
+
 .solar-panel-details {
   display: flex;
   flex-direction: column;

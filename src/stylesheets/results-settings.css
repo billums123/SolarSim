@@ -1,8 +1,10 @@
-.storage-tank-settings {
+.results-settings {
   width: 100%
 }
-.storage-tank-details {
+
+.results-details {
   display: flex;
+  width: 100%;
   flex-direction: column;
   margin-top: 10px;
   row-gap: 25px;

@@ -89,7 +89,7 @@ const SolarPanelSettings = ({
   }, [solarPanelFormErrors]);
   return (
     <>
-      <Accordion>
+      <Accordion className="solar-panel-settings">
         <AccordionSummary
           expandIcon={<SolarPowerIcon sx={{ color: "secondary.main" }} />}
           sx={{
@@ -109,7 +109,7 @@ const SolarPanelSettings = ({
             },
           }}
         >
-          <Typography>Solar Panel Configuration</Typography>
+          <Typography>Solar Panel Settings</Typography>
         </AccordionSummary>
         <AccordionDetails className="solar-panel-details">
           <FormControl fullWidth>
@@ -133,9 +133,10 @@ const SolarPanelSettings = ({
                   label="Width"
                   type="number"
                   value={panelWidth}
-                  onChange={handleFormChange}
                   error={solarPanelFormErrors.panelWidthError.length > 0}
                   helperText={solarPanelFormErrors.panelWidthError}
+                  sx={{ flex: 1 }}
+                  onChange={handleFormChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">m</InputAdornment>
@@ -149,6 +150,7 @@ const SolarPanelSettings = ({
                   value={panelLength}
                   error={solarPanelFormErrors.panelLengthError.length > 0}
                   helperText={solarPanelFormErrors.panelLengthError}
+                  sx={{ flex: 1 }}
                   onChange={handleFormChange}
                   InputProps={{
                     endAdornment: (

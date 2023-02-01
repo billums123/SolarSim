@@ -14,7 +14,7 @@ import {
   SetGlobalFormErrors,
   StorageTankSettingsErrors,
 } from "../types";
-import "../stylesheets/storage-tank-settings.css";
+import "../stylesheets/results-settings.css";
 import React, { useState, useEffect } from "react";
 import formControl from "../utils/formControl";
 
@@ -24,7 +24,7 @@ interface StorageTankSettingsProps {
   globalFormErrors: GlobalFormErrors;
   handleSetGlobalFormErrors: ({ name, error }: SetGlobalFormErrors) => void;
 }
-const StorageTankSettings = ({
+const ResultsSettings = ({
   formValues,
   handleFormChange,
   globalFormErrors,
@@ -94,7 +94,7 @@ const StorageTankSettings = ({
 
   return (
     <>
-      <Accordion className="storage-tank-settings">
+      <Accordion className="results-settings">
         <AccordionSummary
           expandIcon={<PropaneTankIcon sx={{ color: "secondary.main" }} />}
           sx={{
@@ -114,75 +114,9 @@ const StorageTankSettings = ({
             },
           }}
         >
-          <Typography>Storage Tank Settings</Typography>
+          <Typography>Results Settings</Typography>
         </AccordionSummary>
-        <AccordionDetails className="storage-tank-details">
-          <TextField
-            name="storageTankThermalConductivity"
-            label="Thermal Conductivity of Tank"
-            type="number"
-            value={storageTankThermalConductivity}
-            placeholder="0.5"
-            onChange={handleFormChange}
-            error={
-              storageTankFormErrors.storageTankThermalConductivityError.length >
-              0
-            }
-            helperText={
-              storageTankFormErrors.storageTankThermalConductivityError
-            }
-            sx={{ width: "100%" }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">W/mK</InputAdornment>
-              ),
-            }}
-          />
-          <Box component="div" sx={{ display: "flex" }}>
-            <TextField
-              name="storageTankHeight"
-              label="Tank Height"
-              type="number"
-              value={storageTankHeight}
-              onChange={handleFormChange}
-              error={storageTankFormErrors.storageTankHeightError.length > 0}
-              helperText={storageTankFormErrors.storageTankHeightError}
-              sx={{ flex: 1 }}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">m</InputAdornment>,
-              }}
-            />
-            <TextField
-              name="storageTankDiameter"
-              label="Tank Diameter"
-              type="number"
-              value={storageTankDiameter}
-              onChange={handleFormChange}
-              error={storageTankFormErrors.storageTankDiameterError.length > 0}
-              helperText={storageTankFormErrors.storageTankDiameterError}
-              sx={{ flex: 1 }}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">m</InputAdornment>,
-              }}
-            />
-          </Box>
-          <TextField
-            variant="standard"
-            name="storageTankCapacity"
-            label="Storage Tank Capacity"
-            disabled
-            value={(
-              (Math.PI / 4) *
-              Math.pow(storageTankDiameter, 2) *
-              storageTankHeight *
-              1000
-            ).toFixed(2)}
-            sx={{ width: "100%" }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">L</InputAdornment>,
-              readOnly: true,
-            }}
-          />
+        <AccordionDetails className="results-details">
           <TextField
             name="fluidInitTemp"
             label="Initial Fluid Temperature"
@@ -196,23 +130,10 @@ const StorageTankSettings = ({
               endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
             }}
           />
-          <TextField
-            name="fluidFinalTemp"
-            label="Desired Final Fluid Temperature"
-            type="number"
-            value={fluidFinalTemp ? fluidFinalTemp : ""}
-            onChange={handleFormChange}
-            error={storageTankFormErrors.fluidFinalTempError.length > 0}
-            helperText={storageTankFormErrors.fluidFinalTempError}
-            sx={{ width: "100%" }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
-            }}
-          />
         </AccordionDetails>
       </Accordion>
     </>
   );
 };
 
-export default StorageTankSettings;
+export default ResultsSettings;
