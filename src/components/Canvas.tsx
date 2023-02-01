@@ -39,8 +39,8 @@ const Canvas = ({ formValues }: CanvasProps) => {
             <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
               <cylinderGeometry
                 args={[
-                  panelDiameter > 0 ? panelDiameter / 2 : 1,
-                  panelDiameter > 0 ? panelDiameter / 2 : 1,
+                  panelDiameter > 0 ? panelDiameter / 2 : 0.5,
+                  panelDiameter > 0 ? panelDiameter / 2 : 0.5,
                   0.1,
                 ]}
               />

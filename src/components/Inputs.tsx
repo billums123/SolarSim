@@ -51,6 +51,7 @@ const Inputs = ({ formValues, handleFormChange }: InputsProps) => {
       </Paper>
       <Box component="div" className="run-simulation">
         <Button
+          size="large"
           disabled={Object.values(globalFormErrors).some(
             (globalFormError) => globalFormError === true
           )}

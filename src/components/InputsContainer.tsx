@@ -14,7 +14,7 @@ const InputsContainer = ({
 }: InputsContainerProps) => {
   return (
     <Paper
-      sx={{ bgcolor: "secondary.main" }}
+      sx={{ bgcolor: "secondary.light" }}
       elevation={10}
       className="inputs-container"
     >

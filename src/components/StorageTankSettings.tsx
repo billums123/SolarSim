@@ -157,7 +157,6 @@ const StorageTankSettings = ({
             variant="standard"
             name="storageTankCapacity"
             label="Storage Tank Capacity"
-            type="number"
             disabled
             value={(
               (Math.PI / 4) *
@@ -165,7 +164,6 @@ const StorageTankSettings = ({
               storageTankHeight *
               1000
             ).toFixed(2)}
-            onChange={handleFormChange}
             sx={{ width: "100%" }}
             InputProps={{
               endAdornment: <InputAdornment position="end">L</InputAdornment>,

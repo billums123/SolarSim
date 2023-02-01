@@ -163,6 +163,27 @@ const SolarPanelSettings = ({
             />
           )}
           <TextField
+            variant="standard"
+            name="solarPanelArea"
+            label="Solar Panel Surface Area"
+            disabled
+            value={(shapeOfPanel === "rectangle"
+              ? panelWidth * panelLength
+              : Math.PI * Math.pow(panelDiameter / 2, 2)
+            ).toFixed(2)}
+            sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <span>
+                    m<sup>2</sup>
+                  </span>
+                </InputAdornment>
+              ),
+              readOnly: true,
+            }}
+          />
+          <TextField
             name="panelEfficiency"
             label="Panel Efficiency"
             type="number"

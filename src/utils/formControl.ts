@@ -79,8 +79,10 @@ const formControl = {
       storageTankDiameterErrorMessage: "Tank Diameter must be greater than 0",
       fluidInitTempErrorMessage:
         "Initial Fluid Temperature cannot be left blank",
-      fluidFinalTempErrorMessage:
+      fluidFinalTempErrorMessage1:
         "Final Fluid Temperature cannot be left blank",
+      fluidFinalTempErrorMessage2:
+        "Final Fluid Temperature cannot be less than Initial Fluid Temperature",
     };
 
     if (!storageTankThermalConductivity || storageTankThermalConductivity <= 0)
@@ -99,7 +101,10 @@ const formControl = {
       errors.fluidInitTempError = errorMessages.fluidInitTempErrorMessage;
 
     if (!fluidFinalTemp)
-      errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage;
+      errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage1;
+
+    if (fluidFinalTemp && fluidFinalTemp < fluidInitTemp)
+      errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage2;
 
     handleSetStorageTankErrors(errors);
   },
