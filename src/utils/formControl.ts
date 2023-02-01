@@ -103,7 +103,7 @@ const formControl = {
     if (!fluidFinalTemp)
       errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage1;
 
-    if (fluidFinalTemp && fluidFinalTemp < fluidInitTemp)
+    if (fluidFinalTemp && Number(fluidFinalTemp) < Number(fluidInitTemp))
       errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage2;
 
     handleSetStorageTankErrors(errors);
