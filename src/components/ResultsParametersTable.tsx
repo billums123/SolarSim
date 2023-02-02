@@ -78,7 +78,6 @@ const ResultsParametersTable = ({
             )} h`}</TableCell>
             <TableCell>
               {`Total Energy: ${totalEnergyRequiredInKJ.toFixed(2)} kJ`}
-              <sup>2</sup>
             </TableCell>
           </TableRow>
 

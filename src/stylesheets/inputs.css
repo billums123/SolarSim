@@ -8,13 +8,6 @@
   margin: 5% 0 5% 0;
 }
 
-@media (max-width: 600px) {
-    .inputs{
-      height: 95%;
-      width: 95%;
-    }
-  }
-
   .inputs-group {
     height: 90%;
     width: 65%;
@@ -37,6 +30,10 @@
 
 
   @media (max-width: 600px) {
+    .inputs{
+      height: 95%;
+      width: 95%;
+    }
     .inputs-group{
       width: 90%;
     }

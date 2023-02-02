@@ -1,8 +1,11 @@
 import { Box } from "@mui/material";
-import { Canvas as CanvasElement } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas as CanvasElement, useLoader } from "@react-three/fiber";
+import { RepeatWrapping } from "three";
+import { OrbitControls, Sky } from "@react-three/drei";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
 import "../stylesheets/canvas.css";
 import { FormValues } from "../types";
+// import image from "../assets/textures/solar_panel_ao.jpg";
 
 interface CanvasProps {
   formValues: FormValues;
@@ -17,6 +20,21 @@ const Canvas = ({ formValues }: CanvasProps) => {
     storageTankHeight,
     storageTankDiameter,
   } = formValues;
+  const solarPanelTexture = useLoader(
+    TextureLoader,
+    "./src/assets/textures/solar_panel_color.jpg"
+  );
+
+  if (shapeOfPanel === "rectangle") {
+    solarPanelTexture.repeat.x = panelWidth > 0 ? panelWidth : 1;
+    solarPanelTexture.repeat.y = panelLength > 0 ? panelLength : 1;
+  } else {
+    solarPanelTexture.repeat.x = Number(panelDiameter);
+    solarPanelTexture.repeat.y = Number(panelDiameter);
+  }
+  solarPanelTexture.wrapS = RepeatWrapping;
+  solarPanelTexture.wrapT = RepeatWrapping;
+
   return (
     <Box component="div" className="canvas">
       <CanvasElement shadows camera={{ position: [-15, 10, 15], fov: 25 }}>
@@ -32,7 +50,7 @@ const Canvas = ({ formValues }: CanvasProps) => {
                   panelLength > 0 ? panelLength : 1,
                 ]}
               />
-              <meshStandardMaterial />
+              <meshStandardMaterial map={solarPanelTexture} />
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           ) : (
@@ -44,7 +62,7 @@ const Canvas = ({ formValues }: CanvasProps) => {
                   0.1,
                 ]}
               />
-              <meshStandardMaterial />
+              <meshStandardMaterial map={solarPanelTexture} />
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           )}
@@ -60,6 +78,12 @@ const Canvas = ({ formValues }: CanvasProps) => {
             <OrbitControls enablePan={false} enableRotate={false} />
           </mesh>
         </>
+        <Sky
+          distance={450000}
+          sunPosition={[0, 1, 0]}
+          inclination={0}
+          azimuth={0.25}
+        />
       </CanvasElement>
     </Box>
   );
