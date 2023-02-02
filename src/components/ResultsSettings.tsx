@@ -77,17 +77,17 @@ const ResultsSettings = ({
         <AccordionSummary
           expandIcon={<ExpandMoreIcon sx={{ color: "secondary.main" }} />}
           sx={{
-            bgcolor: globalFormErrors.storageTankSettingsErrors
+            bgcolor: globalFormErrors.resultsSettingsErrors
               ? "error.main"
               : "success.main",
 
             ":hover": {
-              bgcolor: globalFormErrors.storageTankSettingsErrors
+              bgcolor: globalFormErrors.resultsSettingsErrors
                 ? "error.light"
                 : "success.light",
             },
             ":focus": {
-              bgcolor: globalFormErrors.storageTankSettingsErrors
+              bgcolor: globalFormErrors.resultsSettingsErrors
                 ? "error.light"
                 : "success.light",
             },

@@ -4,6 +4,7 @@ export interface SolarPanelSettings {
   panelLength: number;
   panelDiameter: number;
   panelEfficiency: number | null;
+  solarFlux: number;
 }
 
 export interface StorageTankSettings {
@@ -21,10 +22,7 @@ export interface ResultsSettings {
 export interface FormValues
   extends SolarPanelSettings,
     StorageTankSettings,
-    ResultsSettings {
-  time: number;
-  solarFlux: number;
-}
+    ResultsSettings {}
 
 export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
 
@@ -91,6 +89,7 @@ export interface SolarPanelSettingsErrors {
   panelLengthError: string;
   panelDiameterError: string;
   panelEfficiencyError: string;
+  solarFluxError: string;
 }
 
 export interface StorageTankSettingsErrors {

@@ -15,23 +15,28 @@ const formControl = {
       panelLength,
       panelDiameter,
       panelEfficiency,
+      solarFlux,
     }: SolarPanelSettings,
     handleSetSolarPanelFormErrors: (errors: SolarPanelSettingsErrors) => void
   ) => {
+    const solarConstant = 1376; // W/m^2
+
     const errors = {
       shapeOfPanelError: "",
       panelWidthError: "",
       panelLengthError: "",
       panelDiameterError: "",
       panelEfficiencyError: "",
+      solarFluxError: "",
     };
-
     const errorMessages = {
       panelDiameterErrorMessage: "Diameter must be greater than 0",
       panelWidthErrorMessage: "Width must be greater than 0",
       panelLengthErrorMessage: "Length must be greater than 0",
       panelEfficiencyErrorMessage:
         "Efficiency must be greater than 0% and less than 100%",
+      solarFluxErrorMessage1: "Solar flux cannot be greater than or equal to 0",
+      solarFluxErrorMessage2: `Solar Flux cannot exceed ${solarConstant} (the value of the solar constant)`,
       reset: "",
     };
     //  Circle Panel Error Handling
@@ -53,6 +58,10 @@ const formControl = {
     if (!panelEfficiency || panelEfficiency <= 0 || panelEfficiency > 100)
       errors.panelEfficiencyError = errorMessages.panelEfficiencyErrorMessage;
 
+    if (!solarFlux || solarFlux < 0)
+      errors.solarFluxError = errorMessages.solarFluxErrorMessage1;
+    if (solarFlux > solarConstant)
+      errors.solarFluxError = errorMessages.solarFluxErrorMessage2;
     handleSetSolarPanelFormErrors(errors);
   },
 
@@ -121,14 +130,14 @@ const formControl = {
 
     const errorMessages = {
       numberOfIncrementsErrorMessage1:
-        "Number of increments must be greater than 0 and less than 250 ",
+        "Number of increments must be greater than 0 and less than or equal to 150 ",
       numberOfIncrementsErrorMessage2:
         "Number of increments must be an integer value ",
       reset: "",
     };
     if (
       !numberOfIncrements ||
-      numberOfIncrements > 250 ||
+      numberOfIncrements > 150 ||
       numberOfIncrements <= 0
     ) {
       errors.numberOfIncrementsError =

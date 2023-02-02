@@ -13,7 +13,6 @@ const startingFormValues: FormValues = {
   panelLength: 1,
   panelDiameter: 1,
   panelEfficiency: null,
-  time: 0,
   solarFlux: 1000,
   storageTankThermalConductivity: 0.5,
   storageTankHeight: 1,

@@ -40,6 +40,7 @@ const SolarPanelSettings = ({
     panelLength,
     panelDiameter,
     panelEfficiency,
+    solarFlux,
   } = formValues;
 
   const [solarPanelFormErrors, setSolarPanelFormErrors] =
@@ -49,6 +50,7 @@ const SolarPanelSettings = ({
       panelLengthError: "",
       panelDiameterError: "",
       panelEfficiencyError: "error",
+      solarFluxError: "error",
     });
 
   const handleCheckIfAnyErrorsExist = () => {
@@ -79,10 +81,18 @@ const SolarPanelSettings = ({
         panelLength,
         panelDiameter,
         panelEfficiency,
+        solarFlux,
       },
       handleSetSolarPanelFormErrors
     );
-  }, [shapeOfPanel, panelWidth, panelLength, panelDiameter, panelEfficiency]);
+  }, [
+    shapeOfPanel,
+    panelWidth,
+    panelLength,
+    panelDiameter,
+    panelEfficiency,
+    solarFlux,
+  ]);
 
   useEffect(() => {
     handleCheckIfAnyErrorsExist();
@@ -194,6 +204,26 @@ const SolarPanelSettings = ({
                 </InputAdornment>
               ),
               readOnly: true,
+            }}
+          />
+          <TextField
+            name="solarFlux"
+            label="Solar Flux"
+            type="number"
+            value={solarFlux ? solarFlux : ""}
+            onChange={handleFormChange}
+            error={solarPanelFormErrors.solarFluxError.length > 0}
+            helperText={solarPanelFormErrors.solarFluxError}
+            sx={{ width: "100%" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {" "}
+                  <span>
+                    W/m<sup>2</sup>
+                  </span>
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
