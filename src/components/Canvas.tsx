@@ -5,7 +5,8 @@ import { OrbitControls, Sky } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import "../stylesheets/canvas.css";
 import { FormValues } from "../types";
-// import image from "../assets/textures/solar_panel_ao.jpg";
+import solarPanelTextureImage from "../assets/textures/solar_panel_color.jpg";
+import metalTextureImage from "../assets/textures/storage_tank_color.jpg";
 
 interface CanvasProps {
   formValues: FormValues;
@@ -37,8 +38,8 @@ const Canvas = ({ formValues }: CanvasProps) => {
     storageTankDiameter,
   } = formValues;
   const [solarPanelTexture, metalTexture] = useLoader(TextureLoader, [
-    "./src/assets/textures/solar_panel_color.jpg",
-    "./src/assets/textures/storage_tank_color.jpg",
+    solarPanelTextureImage,
+    metalTextureImage,
   ]);
 
   //SET UP SOLAR PANEL TEXTURE WRAPPING
@@ -125,7 +126,7 @@ const Canvas = ({ formValues }: CanvasProps) => {
 
           {/* HORIZONTAL PIPE MESH */}
           <mesh position={[0, 0, 0]} rotation={[Math.PI * (1 / 2), 0, 0]}>
-            <cylinderGeometry args={[0.05, 0.05, maxDistance]} />
+            <cylinderGeometry args={[0.05, 0.05, maxDistance * 2]} />
             <meshStandardMaterial map={metalTexture} />
             <OrbitControls enablePan={false} enableRotate={false} />
           </mesh>
