@@ -1,4 +1,6 @@
 import {
+  ResultsSettings,
+  ResultsSettingsErrors,
   SolarPanelSettings,
   SolarPanelSettingsErrors,
   StorageTankSettings,
@@ -107,6 +109,36 @@ const formControl = {
       errors.fluidFinalTempError = errorMessages.fluidFinalTempErrorMessage2;
 
     handleSetStorageTankErrors(errors);
+  },
+
+  resultsSettings: (
+    { numberOfIncrements }: ResultsSettings,
+    handleSetSolarPanelFormErrors: (errors: ResultsSettingsErrors) => void
+  ) => {
+    const errors = {
+      numberOfIncrementsError: "",
+    };
+
+    const errorMessages = {
+      numberOfIncrementsErrorMessage1:
+        "Number of increments must be greater than 0 and less than 250 ",
+      numberOfIncrementsErrorMessage2:
+        "Number of increments must be an integer value ",
+      reset: "",
+    };
+    if (
+      !numberOfIncrements ||
+      numberOfIncrements > 250 ||
+      numberOfIncrements <= 0
+    ) {
+      errors.numberOfIncrementsError =
+        errorMessages.numberOfIncrementsErrorMessage1;
+    }
+
+    if (!Number.isInteger(Number(numberOfIncrements)))
+      errors.numberOfIncrementsError =
+        errorMessages.numberOfIncrementsErrorMessage2;
+    handleSetSolarPanelFormErrors(errors);
   },
 };
 

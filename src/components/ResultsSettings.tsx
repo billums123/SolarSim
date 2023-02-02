@@ -7,10 +7,11 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { PropaneTank as PropaneTankIcon } from "@mui/icons-material";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import {
   FormValues,
   GlobalFormErrors,
+  ResultsSettingsErrors,
   SetGlobalFormErrors,
   StorageTankSettingsErrors,
 } from "../types";
@@ -18,7 +19,7 @@ import "../stylesheets/results-settings.css";
 import React, { useState, useEffect } from "react";
 import formControl from "../utils/formControl";
 
-interface StorageTankSettingsProps {
+interface ResultsSettingsProps {
   formValues: FormValues;
   handleFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   globalFormErrors: GlobalFormErrors;
@@ -29,74 +30,52 @@ const ResultsSettings = ({
   handleFormChange,
   globalFormErrors,
   handleSetGlobalFormErrors,
-}: StorageTankSettingsProps) => {
-  const {
-    storageTankThermalConductivity,
-    storageTankHeight,
-    storageTankDiameter,
-    fluidInitTemp,
-    fluidFinalTemp,
-  } = formValues;
+}: ResultsSettingsProps) => {
+  const { numberOfIncrements } = formValues;
 
-  const [storageTankFormErrors, setStorageTankFormErrors] =
-    useState<StorageTankSettingsErrors>({
-      storageTankThermalConductivityError: "",
-      storageTankHeightError: "",
-      storageTankDiameterError: "",
-      fluidInitTempError: "",
-      fluidFinalTempError: "error",
+  const [resultsFormErrors, setResultsFormErrors] =
+    useState<ResultsSettingsErrors>({
+      numberOfIncrementsError: "",
     });
 
   const handleCheckIfAnyErrorsExist = () => {
-    const errorsExist = Object.values(storageTankFormErrors).some(
+    const errorsExist = Object.values(resultsFormErrors).some(
       (formError) => formError.length
     );
     errorsExist
       ? handleSetGlobalFormErrors({
-          name: "storageTankSettingsErrors",
+          name: "resultsSettingsErrors",
           error: true,
         })
       : handleSetGlobalFormErrors({
-          name: "storageTankSettingsErrors",
+          name: "resultsSettingsErrors",
           error: false,
         });
   };
 
-  const handleSetstorageTankFormErrors = (
-    errors: StorageTankSettingsErrors
-  ) => {
-    setStorageTankFormErrors(errors);
+  const handleSetResultsFormErrors = (errors: ResultsSettingsErrors) => {
+    setResultsFormErrors(errors);
     return;
   };
 
   useEffect(() => {
-    formControl.storageTankSettings(
+    formControl.resultsSettings(
       {
-        storageTankThermalConductivity,
-        storageTankHeight,
-        storageTankDiameter,
-        fluidInitTemp,
-        fluidFinalTemp,
+        numberOfIncrements,
       },
-      handleSetstorageTankFormErrors
+      handleSetResultsFormErrors
     );
-  }, [
-    storageTankThermalConductivity,
-    storageTankHeight,
-    storageTankDiameter,
-    fluidInitTemp,
-    fluidFinalTemp,
-  ]);
+  }, [numberOfIncrements]);
 
   useEffect(() => {
     handleCheckIfAnyErrorsExist();
-  }, [storageTankFormErrors]);
+  }, [resultsFormErrors]);
 
   return (
     <>
       <Accordion className="results-settings">
         <AccordionSummary
-          expandIcon={<PropaneTankIcon sx={{ color: "secondary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: "secondary.main" }} />}
           sx={{
             bgcolor: globalFormErrors.storageTankSettingsErrors
               ? "error.main"
@@ -118,17 +97,14 @@ const ResultsSettings = ({
         </AccordionSummary>
         <AccordionDetails className="results-details">
           <TextField
-            name="fluidInitTemp"
-            label="Initial Fluid Temperature"
+            name="numberOfIncrements"
+            label="Number of Increments"
             type="number"
-            value={fluidInitTemp}
+            value={numberOfIncrements ? numberOfIncrements : ""}
             onChange={handleFormChange}
-            error={storageTankFormErrors.fluidInitTempError.length > 0}
-            helperText={storageTankFormErrors.fluidInitTempError}
+            error={resultsFormErrors.numberOfIncrementsError.length > 0}
+            helperText={resultsFormErrors.numberOfIncrementsError}
             sx={{ width: "100%" }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">˚C</InputAdornment>,
-            }}
           />
         </AccordionDetails>
       </Accordion>

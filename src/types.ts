@@ -14,10 +14,16 @@ export interface StorageTankSettings {
   fluidFinalTemp: number | null;
 }
 
-export interface FormValues extends SolarPanelSettings, StorageTankSettings {
+export interface ResultsSettings {
+  numberOfIncrements: number | null;
+}
+
+export interface FormValues
+  extends SolarPanelSettings,
+    StorageTankSettings,
+    ResultsSettings {
   time: number;
   solarFlux: number;
-  numberOfIncrements: number | null;
 }
 
 export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
@@ -69,9 +75,13 @@ export interface HeatTransferResults {
 export interface GlobalFormErrors {
   solarPanelSettingsErrors: boolean;
   storageTankSettingsErrors: boolean;
+  resultsSettingsErrors: boolean;
 }
 export interface SetGlobalFormErrors {
-  name: "solarPanelSettingsErrors" | "storageTankSettingsErrors";
+  name:
+    | "solarPanelSettingsErrors"
+    | "storageTankSettingsErrors"
+    | "resultsSettingsErrors";
   error: boolean;
 }
 
@@ -89,6 +99,10 @@ export interface StorageTankSettingsErrors {
   storageTankDiameterError: string;
   fluidInitTempError: string;
   fluidFinalTempError: string;
+}
+
+export interface ResultsSettingsErrors {
+  numberOfIncrementsError: string;
 }
 
 export interface SimulationStatus {

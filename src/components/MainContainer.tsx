@@ -20,7 +20,7 @@ const startingFormValues: FormValues = {
   storageTankDiameter: 1,
   fluidInitTemp: 20,
   fluidFinalTemp: null,
-  numberOfIncrements: 10,
+  numberOfIncrements: null,
 };
 
 const MainContainer = () => {

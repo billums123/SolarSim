@@ -33,6 +33,7 @@ const Inputs = ({
   const [globalFormErrors, setGlobalFormErrors] = useState<GlobalFormErrors>({
     solarPanelSettingsErrors: true,
     storageTankSettingsErrors: true,
+    resultsSettingsErrors: true,
   });
 
   const handleSetGlobalFormErrors = ({ name, error }: SetGlobalFormErrors) => {
@@ -43,6 +44,7 @@ const Inputs = ({
     setGlobalFormErrors({
       solarPanelSettingsErrors: true,
       storageTankSettingsErrors: true,
+      resultsSettingsErrors: true,
     });
     handleResetSimulation();
   };
