@@ -11,8 +11,10 @@ interface CanvasProps {
   formValues: FormValues;
 }
 
-const calculateDistBetweenTankAndPanel = (storageTankDiameter: number) => {
-  const maxDistance = 2; //max distance between the panel and tank
+const calculateDistBetweenTankAndPanel = (
+  storageTankDiameter: number,
+  maxDistance: number
+) => {
   let storageTankDist = maxDistance;
   let solarPanelDist = -maxDistance;
   if (storageTankDiameter <= 0) return { storageTankDist, solarPanelDist };
@@ -34,23 +36,34 @@ const Canvas = ({ formValues }: CanvasProps) => {
     storageTankHeight,
     storageTankDiameter,
   } = formValues;
-  const solarPanelTexture = useLoader(
-    TextureLoader,
-    "./src/assets/textures/solar_panel_color.jpg"
-  );
+  const [solarPanelTexture, metalTexture] = useLoader(TextureLoader, [
+    "./src/assets/textures/solar_panel_color.jpg",
+    "./src/assets/textures/storage_tank_color.jpg",
+  ]);
 
+  //SET UP SOLAR PANEL TEXTURE WRAPPING
   if (shapeOfPanel === "rectangle") {
     solarPanelTexture.repeat.x = panelWidth > 0 ? panelWidth : 1;
     solarPanelTexture.repeat.y = panelLength > 0 ? panelLength : 1;
   } else {
-    solarPanelTexture.repeat.x = Number(panelDiameter);
-    solarPanelTexture.repeat.y = Number(panelDiameter);
+    solarPanelTexture.repeat.x = panelDiameter > 0 ? panelDiameter : 1;
+    solarPanelTexture.repeat.y = panelDiameter > 0 ? panelDiameter : 1;
   }
   solarPanelTexture.wrapS = RepeatWrapping;
   solarPanelTexture.wrapT = RepeatWrapping;
 
-  const { storageTankDist, solarPanelDist } =
-    calculateDistBetweenTankAndPanel(storageTankDiameter);
+  //SET UP METAL TEXTURE WRAPPING
+  metalTexture.repeat.x = storageTankDiameter > 0 ? storageTankDiameter : 1;
+  metalTexture.repeat.y = storageTankDiameter > 0 ? storageTankDiameter : 1;
+
+  metalTexture.wrapS = RepeatWrapping;
+  metalTexture.wrapT = RepeatWrapping;
+
+  const maxDistance = 1; //max distance between the panel and tank
+  const { storageTankDist, solarPanelDist } = calculateDistBetweenTankAndPanel(
+    storageTankDiameter,
+    maxDistance
+  );
 
   return (
     <Box component="div" className="canvas">
@@ -72,7 +85,11 @@ const Canvas = ({ formValues }: CanvasProps) => {
                 ]}
               />
               <meshStandardMaterial map={solarPanelTexture} />
-              <OrbitControls enablePan={false} enableRotate={false} />
+              <OrbitControls
+                enablePan={false}
+                enableRotate={false}
+                maxDistance={750}
+              />
             </mesh>
           ) : (
             // CIRCLE SOLAR PANEL MESH
@@ -85,7 +102,11 @@ const Canvas = ({ formValues }: CanvasProps) => {
                 ]}
               />
               <meshStandardMaterial map={solarPanelTexture} />
-              <OrbitControls enablePan={false} enableRotate={false} />
+              <OrbitControls
+                enablePan={false}
+                enableRotate={false}
+                maxDistance={750}
+              />
             </mesh>
           )}
 
@@ -98,12 +119,19 @@ const Canvas = ({ formValues }: CanvasProps) => {
                 storageTankHeight > 0 ? storageTankHeight : 1,
               ]}
             />
-            <meshStandardMaterial />
+            <meshStandardMaterial map={metalTexture} />
+            <OrbitControls enablePan={false} enableRotate={false} />
+          </mesh>
+
+          {/* HORIZONTAL PIPE MESH */}
+          <mesh position={[0, 0, 0]} rotation={[Math.PI * (1 / 2), 0, 0]}>
+            <cylinderGeometry args={[0.05, 0.05, maxDistance]} />
+            <meshStandardMaterial map={metalTexture} />
             <OrbitControls enablePan={false} enableRotate={false} />
           </mesh>
         </>
         <Sky
-          distance={450000}
+          distance={4500000}
           sunPosition={[0, 1, 0]}
           inclination={0}
           azimuth={0.25}

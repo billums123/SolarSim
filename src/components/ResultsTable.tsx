@@ -54,7 +54,6 @@ const createTableData = (
     };
   });
 
-  console.log(tableRows);
   return tableRows;
 };
 
