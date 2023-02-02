@@ -35,7 +35,7 @@ const ResultsSettings = ({
 
   const [resultsFormErrors, setResultsFormErrors] =
     useState<ResultsSettingsErrors>({
-      numberOfIncrementsError: "",
+      numberOfIncrementsError: "error",
     });
 
   const handleCheckIfAnyErrorsExist = () => {

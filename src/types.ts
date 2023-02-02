@@ -24,7 +24,10 @@ export interface FormValues
     StorageTankSettings,
     ResultsSettings {}
 
-export type SurfaceArea = Omit<SolarPanelSettings, "panelEfficiency">;
+export type SurfaceArea = Omit<
+  SolarPanelSettings,
+  "panelEfficiency" | "solarFlux"
+>;
 
 export type StorageTankCapacity = Pick<
   StorageTankSettings,
