@@ -12,14 +12,14 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import theme from "../theme";
-import "../stylesheets/results.css";
+import "../stylesheets/results-chart.css";
 import {
   EnergyRequiredResults,
   HeatTransferResults,
   RequiredTimeResults,
 } from "../types";
 
-interface ResultsProps {
+interface ResultsChartProps {
   heatTransferResults: HeatTransferResults;
 }
 
@@ -37,52 +37,6 @@ ChartJS.register(
 const formatData = (heatTransferResults: HeatTransferResults) => {
   const { calculationComplete, energyRequiredToHeatTankFluid, requiredTime } =
     heatTransferResults;
-
-  const chartOptions = {
-    responsive: true,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Time (hours)",
-        },
-        grid: {
-          // color: theme.palette.primary.light,
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Fluid Temperature (C˚)",
-        },
-        grid: {
-          // color: theme.palette.primary.light,
-        },
-      },
-      y1: {
-        title: {
-          display: true,
-          text: "Energy Required (kJ)",
-        },
-        type: "linear" as const,
-        display: true,
-        position: "right" as const,
-        grid: {
-          drawOnChartArea: false,
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        fullSize: false,
-        text: "Storage Tank Fluid Temperature vs. Time",
-      },
-    },
-  };
 
   //default labels values
   let defaultLabelValues = ["0", "1", "2", "3", "4", "5"];
@@ -113,21 +67,69 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
     );
   }
 
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Time (hours)",
+        },
+        grid: {
+          // color: theme.palette.primary.light,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Fluid Temperature (˚C)",
+        },
+        grid: {
+          // color: theme.palette.primary.light,
+        },
+      },
+      y1: {
+        title: {
+          display: true,
+          text: "Energy Required (kJ)",
+        },
+        type: "linear" as const,
+        display: true,
+        position: "right" as const,
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        fullSize: false,
+        text: "Storage Tank Fluid Temperature vs. Time",
+      },
+    },
+  };
+
   const chartData = {
     labels,
     datasets: [
       {
-        fill: true,
+        fill: false,
+        label: "Temp",
         data: tempDataValues,
-        borderColor: `${theme.palette.primary.main}EE`,
-        backgroundColor: `${theme.palette.primary.light}AA`,
+        borderColor: `${theme.palette.primary.main}`,
+        backgroundColor: `${theme.palette.primary.main}`,
         yAxisID: "y",
       },
       {
-        fill: true,
+        fill: false,
+        label: "Energy",
         data: energyDataValues,
-        borderColor: `${theme.palette.primary.main}00`,
-        backgroundColor: `${theme.palette.primary.light}00`,
+        borderColor: `${theme.palette.secondary.main}`,
+        backgroundColor: `${theme.palette.secondary.main}`,
         yAxisID: "y1",
       },
     ],
@@ -136,13 +138,13 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
   return { chartData, chartOptions };
 };
 
-const Results = ({ heatTransferResults }: ResultsProps) => {
+const ResultsChart = ({ heatTransferResults }: ResultsChartProps) => {
   const { chartData, chartOptions } = formatData(heatTransferResults);
   return (
-    <Box component="div" className="results">
+    <Box component="div" className="results-chart">
       <Line style={{ margin: 5 }} options={chartOptions} data={chartData} />
     </Box>
   );
 };
 
-export default Results;
+export default ResultsChart;

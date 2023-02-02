@@ -1,0 +1,16 @@
+.results-chart {
+  height: 100%;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .results-chart{
+      flex: .5;
+    }
+  }
+  
+  

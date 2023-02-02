@@ -107,6 +107,12 @@ export interface ResultsSettingsErrors {
   numberOfIncrementsError: string;
 }
 
+export interface ResultsTableRow {
+  time: number;
+  fluidTemp: number;
+  energy: number;
+}
+
 export interface SimulationStatus {
   status: "waiting" | "inProgress" | "complete";
 }

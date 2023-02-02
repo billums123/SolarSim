@@ -98,7 +98,7 @@ const ResultsSettings = ({
         <AccordionDetails className="results-details">
           <TextField
             name="numberOfIncrements"
-            label="Number of Increments"
+            label="Number of Intervals in Results"
             type="number"
             value={numberOfIncrements ? numberOfIncrements : ""}
             onChange={handleFormChange}

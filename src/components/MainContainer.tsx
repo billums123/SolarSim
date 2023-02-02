@@ -79,6 +79,7 @@ const MainContainer = () => {
       <ResultsModal
         resultsModalOpen={resultsModalOpen}
         handleCloseResultsModal={handleCloseResultsModal}
+        formValues={formValues}
         heatTransferResults={heatTransferResults}
       />
 

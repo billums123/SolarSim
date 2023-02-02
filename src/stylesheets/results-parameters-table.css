@@ -1,0 +1,11 @@
+.results-parameters-table {
+  margin-top: 10px;
+  flex: 1
+}
+
+@media (max-width: 900px) {
+  .results-parameters-table{
+    margin-top: 0px;
+    flex: 1
+  }
+}

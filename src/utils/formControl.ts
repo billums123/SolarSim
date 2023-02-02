@@ -35,7 +35,7 @@ const formControl = {
       panelLengthErrorMessage: "Length must be greater than 0",
       panelEfficiencyErrorMessage:
         "Efficiency must be greater than 0% and less than 100%",
-      solarFluxErrorMessage1: "Solar flux cannot be greater than or equal to 0",
+      solarFluxErrorMessage1: "Solar flux must be greater than or equal to 0",
       solarFluxErrorMessage2: `Solar Flux cannot exceed ${solarConstant} (the value of the solar constant)`,
       reset: "",
     };
@@ -130,9 +130,9 @@ const formControl = {
 
     const errorMessages = {
       numberOfIncrementsErrorMessage1:
-        "Number of increments must be greater than 0 and less than or equal to 150 ",
+        "Number of intervals must be greater than 0 and less than or equal to 150 ",
       numberOfIncrementsErrorMessage2:
-        "Number of increments must be an integer value ",
+        "Number of intervals must be an integer value ",
       reset: "",
     };
     if (

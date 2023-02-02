@@ -1,0 +1,9 @@
+.results-table {
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .results-table{
+    margin-top: 50px;
+  }
+}
