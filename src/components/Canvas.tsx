@@ -11,6 +11,20 @@ interface CanvasProps {
   formValues: FormValues;
 }
 
+const calculateDistBetweenTankAndPanel = (storageTankDiameter: number) => {
+  const maxDistance = 2; //max distance between the panel and tank
+  let storageTankDist = maxDistance;
+  let solarPanelDist = -maxDistance;
+  if (storageTankDiameter <= 0) return { storageTankDist, solarPanelDist };
+  const storageTankRadius = storageTankDiameter / 2;
+  storageTankDist = storageTankRadius + maxDistance / 2;
+  solarPanelDist = -1 * (maxDistance / 2);
+  return {
+    storageTankDist,
+    solarPanelDist,
+  };
+};
+
 const Canvas = ({ formValues }: CanvasProps) => {
   const {
     shapeOfPanel,
@@ -35,6 +49,9 @@ const Canvas = ({ formValues }: CanvasProps) => {
   solarPanelTexture.wrapS = RepeatWrapping;
   solarPanelTexture.wrapT = RepeatWrapping;
 
+  const { storageTankDist, solarPanelDist } =
+    calculateDistBetweenTankAndPanel(storageTankDiameter);
+
   return (
     <Box component="div" className="canvas">
       <CanvasElement shadows camera={{ position: [-15, 10, 15], fov: 25 }}>
@@ -42,7 +59,11 @@ const Canvas = ({ formValues }: CanvasProps) => {
           <ambientLight intensity={0.1} />
           <directionalLight position={[0, 5, 5]} />
           {shapeOfPanel === "rectangle" ? (
-            <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
+            // RECTANGLE SOLAR PANEL MESH
+            <mesh
+              rotation={[Math.PI * (1 / 2), 0, 0]}
+              position={[0, 0, solarPanelDist]}
+            >
               <boxGeometry
                 args={[
                   panelWidth > 0 ? panelWidth : 1,
@@ -54,6 +75,7 @@ const Canvas = ({ formValues }: CanvasProps) => {
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           ) : (
+            // CIRCLE SOLAR PANEL MESH
             <mesh rotation={[Math.PI * (1 / 2), 0, 0]} position={[0, 0, -1]}>
               <cylinderGeometry
                 args={[
@@ -66,12 +88,14 @@ const Canvas = ({ formValues }: CanvasProps) => {
               <OrbitControls enablePan={false} enableRotate={false} />
             </mesh>
           )}
-          <mesh position={[0, 0, 3]}>
+
+          {/* STORAGE TANK MESH */}
+          <mesh position={[0, 0, storageTankDist]}>
             <cylinderGeometry
               args={[
-                storageTankDiameter / 2,
-                storageTankDiameter / 2,
-                storageTankHeight,
+                storageTankDiameter > 0 ? storageTankDiameter / 2 : 0.5,
+                storageTankDiameter > 0 ? storageTankDiameter / 2 : 0.5,
+                storageTankHeight > 0 ? storageTankHeight : 1,
               ]}
             />
             <meshStandardMaterial />
