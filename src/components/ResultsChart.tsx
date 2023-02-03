@@ -75,17 +75,15 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
           display: true,
           text: "Time (hours)",
         },
-        grid: {
-          // color: theme.palette.primary.light,
-        },
       },
       y: {
         title: {
           display: true,
           text: "Fluid Temperature (˚C)",
+          color: theme.palette.primary.dark,
         },
-        grid: {
-          // color: theme.palette.primary.light,
+        ticks: {
+          color: theme.palette.primary.dark,
         },
       },
       y1: {
@@ -99,11 +97,14 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
         grid: {
           drawOnChartArea: false,
         },
+        ticks: {
+          color: theme.palette.secondary.dark,
+        },
       },
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       title: {
         display: true,
@@ -118,7 +119,7 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
     datasets: [
       {
         fill: false,
-        label: "Temp",
+        label: "Fluid Temperature",
         data: tempDataValues,
         borderColor: `${theme.palette.primary.main}`,
         backgroundColor: `${theme.palette.primary.main}`,
@@ -126,7 +127,7 @@ const formatData = (heatTransferResults: HeatTransferResults) => {
       },
       {
         fill: false,
-        label: "Energy",
+        label: "Energy Required",
         data: energyDataValues,
         borderColor: `${theme.palette.secondary.main}`,
         backgroundColor: `${theme.palette.secondary.main}`,

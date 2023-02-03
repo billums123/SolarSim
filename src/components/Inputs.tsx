@@ -28,8 +28,6 @@ const Inputs = ({
   handleOpenResultsModal,
   handleResetSimulation,
 }: InputsProps) => {
-  const { solarFlux } = formValues;
-
   const [globalFormErrors, setGlobalFormErrors] = useState<GlobalFormErrors>({
     solarPanelSettingsErrors: true,
     storageTankSettingsErrors: true,

@@ -47,10 +47,12 @@ const MainContainer = () => {
   const handleRunSimulation = () => {
     setSimulationStatus({ status: "inProgress" });
     const results = heatTransferCalcs(formValues);
+
+    //This setTimeout is currently meant to replicate what would happen if a more computationally intensive simulation was ran.
     setTimeout(() => {
       setSimulationStatus({ status: "complete" });
       setHeatTransferResults(results);
-    }, 2000);
+    }, 1000);
   };
 
   const handleOpenResultsModal = () => {
